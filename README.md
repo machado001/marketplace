@@ -2,7 +2,7 @@
 hello world!
 
 
-Mais informações sobre o projeto em:
+Declaração de visão do Projeto:
 
 https://docs.google.com/document/d/1Izqh4yTgMip5M9SG5OzqOUHHhq2vlfg4OOadDwbySRc/edit
 
