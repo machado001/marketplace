@@ -1,6 +1,8 @@
+
+
 const itemNavBarClassName = "transition ease-in-out my-2 p-3 hover:bg-red-200 rounded-md"
 
-export default function Header() {
+export function Header() {
   return (
     <header>
       <nav className="px-6 py-2 w-full bg-red-100 md:flex md:justify-between md:items-center">
@@ -22,7 +24,10 @@ export default function Header() {
           alt="placeholder img"
           className="rounded-full" 
         />
+
       </nav>
+      
     </header>
+    
   );
 }
