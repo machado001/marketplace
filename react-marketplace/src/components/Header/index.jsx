@@ -1,6 +1,5 @@
 
-
-const itemNavBarClassName = "transition ease-in-out my-2 p-3 hover:bg-red-200 rounded-md"
+const itemNavBarClassName = "transition ease-in-out my-2 p-3 hover:bg-red-200 rounded-md md:text-center"
 
 export function Header() {
   return (
@@ -12,7 +11,7 @@ export function Header() {
             alt="placeholder img"
             className="rounded-full mr-6"
           />
-          <ul className='w-auto gap-6 md:flex justify-between md:items-center justify-center'>
+          <ul className='w-auto gap-3 md:flex justify-between md:items-center justify-center'>
             <li className= {itemNavBarClassName}><a href="#">Destaques</a></li>
             <li className= {itemNavBarClassName}><a href="#">Produtos recentes</a></li>
             <li className= {itemNavBarClassName}><a href="#">Adicionar produtos</a></li>
