@@ -1,5 +1,3 @@
-const itemNavBarClassName = "transition ease-in-out my-2 p-3 hover:bg-red-200 rounded-md md:text-center"
-
 export function Header() {
 import { List } from 'phosphor-react'
 import { useState } from 'react'
@@ -9,9 +7,7 @@ const itemNavBarClassName =
 export default function Header() {
   const [mobileMenu, setMobileMenu] = useState(false)
 
-  function handleMenuClick(e) {
-    console.log(e.target.dataset.name)
-    e.target.dataset.name === 'menu'
+  function handleMenuClick() {
     setMobileMenu((current) => !current)
   }
   return (
@@ -60,4 +56,5 @@ export default function Header() {
       </nav>
     </header>
   )
+}
 }}
