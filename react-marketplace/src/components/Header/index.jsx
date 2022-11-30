@@ -1,4 +1,3 @@
-export function Header() {
 import { List } from 'phosphor-react'
 import { useState } from 'react'
 const itemNavBarClassName =
@@ -57,4 +56,3 @@ export default function Header() {
     </header>
   )
 }
-}}

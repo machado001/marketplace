@@ -1,23 +1,17 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import "./styles.css";
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth'
 import { auth } from '../../services/fireBaseConfig'
 
 export function Register() {
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [
-    createUserWithEmailAndPassword,
-    user,
-    loading,
-    error,
-  ] = useCreateUserWithEmailAndPassword(auth);
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth)
 
   function handleSignUp(e) {
-    e.preventDefault();
-    createUserWithEmailAndPassword(email, password);
+    e.preventDefault()
+    createUserWithEmailAndPassword(email, password)
   }
   return (
     <div className="container">
@@ -33,7 +27,7 @@ export function Register() {
             name="email"
             id="email"
             placeholder="johndoe@gmail.com"
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
 
@@ -44,7 +38,7 @@ export function Register() {
             name="password"
             id="password"
             placeholder="********************"
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
 
@@ -57,5 +51,5 @@ export function Register() {
         </div>
       </form>
     </div>
-  );
+  )
 }
