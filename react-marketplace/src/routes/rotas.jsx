@@ -1,8 +1,8 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-import { Login } from "../components/Login";
-import { Register } from "../components/Register";
-import { Header } from '../components/Header';
+import { Login } from '../components/Login'
+import { Register } from '../components/Register'
+import Header from '../components/Header'
 
 export function Routess() {
   return (
@@ -13,5 +13,5 @@ export function Routess() {
         <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
-  );
+  )
 }
