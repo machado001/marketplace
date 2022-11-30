@@ -1,6 +1,7 @@
-export function Header() {
-import { List } from 'phosphor-react'
+
 import { useState } from 'react'
+import { List } from 'phosphor-react'
+
 const itemNavBarClassName =
   'transition ease-in-out my-2 p-3 hover:bg-red-200 rounded-md cursor-pointer'
 
@@ -57,4 +58,4 @@ export default function Header() {
     </header>
   )
 }
-}}
+
