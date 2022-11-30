@@ -7,8 +7,8 @@ import { Header } from '../components/Header';
 export function Routess() {
   return (
     <BrowserRouter>
+      <Header></Header>
       <Routes>
-        <Route path="/" element={<Header />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
