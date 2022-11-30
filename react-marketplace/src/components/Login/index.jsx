@@ -69,12 +69,12 @@ export function Login() {
             </a>
           </p>
           <button
-            className="px-4 py-2 border bg-indigo-400 rounded mb-3"
+            className="px-4 py-2 border bg-gradient-to-b from-indigo-500 to-indigo-400 rounded mb-3"
             onClick={handleLogin}
             type="button"
           >
             <div className="flex items-center">
-              <p className="pr-2 text-white font-bold">Entrar</p>
+              <p className="pr-2 text-indigo-50 font-bold">Entrar</p>
               <CaretRight className="text-white" />
             </div>
           </button>
@@ -95,7 +95,7 @@ export function Login() {
           <div className="w-full flex justify-center">
             <button
               type="button"
-              className="border rounded-full p-2 bg-indigo-400 hover:scale-110 transition-transform"
+              className="border rounded-full p-2 bg-gradient-to-b from-indigo-600 to-indigo-400 hover:scale-110 transition-transform shadow"
               onClick={handleGoogleSignup}
             >
               <GoogleLogo size={24} weight="bold" className="text-white" />

@@ -14,6 +14,7 @@ export function Register() {
     e.preventDefault()
     createUserWithEmailAndPassword(email, password)
       .then((result) => {
+        result.user.displayName = name
         console.log(result)
       })
       .catch((error) => console.log(error))
