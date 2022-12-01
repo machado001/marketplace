@@ -1,61 +1,86 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import "./styles.css";
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth'
 import { auth } from '../../services/fireBaseConfig'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export function Register() {
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [
-    createUserWithEmailAndPassword,
-    user,
-    loading,
-    error,
-  ] = useCreateUserWithEmailAndPassword(auth);
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [name, setName] = useState('')
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth)
 
   function handleSignUp(e) {
-    e.preventDefault();
-    createUserWithEmailAndPassword(email, password);
+    e.preventDefault()
+    createUserWithEmailAndPassword(email, password)
+      .then((result) => {
+        result.user.displayName = name
+        console.log(result)
+        toast.success('Usuário cadastrado com sucesso!')
+      })
+      .catch((error) => {
+        console.log(error)
+        toast.error('Algo deu errado 😔')
+      })
   }
   return (
-    <div className="container">
-      <header className="header">
-        <span>Por favor digite suas informações de cadastro</span>
-      </header>
-
-      <form>
-        <div className="inputContainer">
-          <label htmlFor="email">E-mail</label>
-          <input
-            type="text"
-            name="email"
-            id="email"
-            placeholder="johndoe@gmail.com"
-            onChange={e => setEmail(e.target.value)}
-          />
-        </div>
-
-        <div className="inputContainer">
-          <label htmlFor="password">Senha</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="********************"
-            onChange={e => setPassword(e.target.value)}
-          />
-        </div>
-
-        <button className="button" onClick={handleSignUp}>
-          Cadastrar
-        </button>
-        <div className="footer">
-          <p>Você já tem uma conta?</p>
-          <Link to="/">Acesse sua conta aqui</Link>
-        </div>
-      </form>
+    <div className="md:w-3/5 w-4/5 mx-auto my-6 h-[70vh] flex flex-col items-center justify-center">
+      <div className=" shadow w-4/5 py-4 md:py-8 md:px-16 px-4 ">
+        <header className="header">
+          <h1 className="text-3xl w-full mb-6 text-indigo-900">Registre-se</h1>
+        </header>
+        <form>
+          <div className="mb-3">
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Seu nome"
+              onChange={(e) => setName(e.target.value)}
+              className="outline-0 border-2 rounded px-3 py-2 w-full"
+            />
+          </div>
+          <div className="mb-3">
+            <input
+              type="text"
+              name="email"
+              id="email"
+              placeholder="Seu email"
+              onChange={(e) => setEmail(e.target.value)}
+              className="outline-0 border-2 rounded px-3 py-2 w-full"
+            />
+          </div>
+          <div className="mb-3">
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Sua senha"
+              onChange={(e) => setPassword(e.target.value)}
+              className="outline-0 border-2 rounded px-3 py-2 w-full"
+            />
+          </div>
+          <button
+            className="px-4 py-2 border bg-indigo-400 rounded mb-3"
+            onClick={handleSignUp}
+            type="button"
+          >
+            <p className="pr-2 text-white font-bold">Cadastrar</p>
+          </button>
+          <div className="md:flex md:items-center mb-4">
+            <p>Já possui uma conta?</p>
+            <Link
+              className="md:ml-1 text-indigo-600 font-semibold underline"
+              to="/login"
+            >
+              Acesse aqui
+            </Link>
+          </div>
+        </form>
+      </div>
+      <ToastContainer />
     </div>
-  );
+  )
 }
