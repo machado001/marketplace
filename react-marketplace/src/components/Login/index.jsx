@@ -39,8 +39,8 @@ export function Login() {
   }
 
   return (
-    <div className="md:w-3/5 w-4/5 mx-auto my-6 h-[70vh] flex flex-col items-center justify-center">
-      <div className=" shadow w-4/5 py-4 md:py-8 md:px-16 px-4">
+    <div className="flex flex-col items-center justify-center">
+      <div className="shadow md:w-2/4 w-5/6 p-8">
         <header>
           <h1 className="text-3xl w-full mb-6 text-indigo-900">Faça Login</h1>
         </header>

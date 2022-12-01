@@ -47,6 +47,7 @@ export default function Header() {
               }
               alt="placeholder img"
               className="rounded-full w-[50px] h-[50px] mr-6"
+              name={user.displayName}
             />
           )}
 
