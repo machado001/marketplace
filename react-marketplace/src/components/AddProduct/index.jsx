@@ -1,6 +1,22 @@
 import react from '../../assets/react.svg'
-import { CaretRight } from 'phosphor-react'
+import { useState } from 'react'
+import { CaretRight, CaretUp } from 'phosphor-react'
+import { storage } from '../../services/fireBaseConfig'
+import { ref, uploadBytes } from 'firebase/storage'
+import { v4 } from 'uuid'
+
 export default function AddProduct() {
+  const [image, setImage] = useState()
+  const [preview, setPreview] = useState()
+  function UploadImage() {
+    if (!image) return
+
+    const imgRef = ref(storage, `images/${image.name + v4()}`)
+
+    uploadBytes(imgRef, image).then(() => {
+      console.log('ihaaaa')
+    })
+  }
   return (
     <div className="flex flex-col items-center justify-center w-full mt-12">
       <form className="shadow md:w-4/5 sm:w-5/6 lg:w-2/4 p-8">
@@ -30,13 +46,40 @@ export default function AddProduct() {
           <div>
             <span>Foto do produto</span>
             <div className="flex flex-col items-center">
-              <img src={react} className="h-44 p-4 shadow mt-4 mb-1" />
-              <button
-                type="button"
-                className="px-2 py-1 border bg-gradient-to-b from-indigo-500 to-indigo-400 rounded mb-3"
-              >
-                <p className="text-indigo-50">Escolher foto</p>
-              </button>
+              <img
+                className="h-44 p-4 shadow mt-4 mb-1"
+                id="imgOutput"
+                src={preview}
+              />
+              <div className="flex items-center">
+                <label
+                  htmlFor="upload"
+                  className="px-2 py-1 border bg-gradient-to-b from-indigo-500 to-indigo-400 rounded mb-3 cursor-pointer"
+                >
+                  <p className="text-indigo-50">Escolher foto</p>
+                  <input
+                    id="upload"
+                    className="hidden"
+                    type="file"
+                    onChange={(e) => {
+                      setImage(
+                        e.target.files[0],
+                        setPreview(URL.createObjectURL(e.target.files[0]))
+                      )
+                    }}
+                  />
+                </label>
+                <button
+                  type="button"
+                  className="px-2 py-1 border bg-gradient-to-b from-indigo-500 to-indigo-400 rounded mb-3"
+                  onClick={UploadImage}
+                >
+                  <div className="flex items-center">
+                    <p className="text-indigo-50 pr-2">Upload</p>
+                    <CaretUp className="text-white" weight="bold" />
+                  </div>
+                </button>
+              </div>
             </div>
           </div>
         </div>
