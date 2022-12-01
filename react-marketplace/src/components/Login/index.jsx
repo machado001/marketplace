@@ -4,7 +4,7 @@ import { CaretRight, GoogleLogo } from 'phosphor-react'
 
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth'
 import { auth } from '../../services/fireBaseConfig'
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import { GoogleAuthProvider, signInWithPopup, getAuth } from 'firebase/auth'
 
 export function Login() {
   const [email, setEmail] = useState('')
@@ -26,6 +26,8 @@ export function Login() {
     signInWithEmailAndPassword(email, password)
       .then((result) => {
         console.log(result)
+        const user = getAuth().currentUser
+        console.log(user)
       })
       .catch((error) => {
         console.log(error)

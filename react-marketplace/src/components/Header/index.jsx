@@ -1,10 +1,13 @@
+import { getAuth } from 'firebase/auth'
 import { List } from 'phosphor-react'
 import { useState } from 'react'
-const itemNavBarClassName =
-  'transition ease-in-out my-2 p-3 hover:bg-indigo-500 rounded-md cursor-pointer'
+import { Link } from 'react-router-dom'
 
 export default function Header() {
   const [mobileMenu, setMobileMenu] = useState(false)
+  const itemNavBarClassName =
+    'transition ease-in-out my-2 p-3 hover:bg-indigo-500 rounded-md cursor-pointer'
+  const user = getAuth().currentUser
 
   function handleMenuClick() {
     setMobileMenu((current) => !current)
@@ -26,25 +29,27 @@ export default function Header() {
             }
           >
             <li className={itemNavBarClassName}>
-              <a href="#">Destaques</a>
+              <Link to="/login">Produtos recentes</Link>
             </li>
             <li className={itemNavBarClassName}>
-              <a href="#">Produtos recentes</a>
+              <Link to="/add-product">Adicionar produtos</Link>
             </li>
             <li className={itemNavBarClassName}>
-              <a href="#">Adicionar produtos</a>
-            </li>
-            <li className={itemNavBarClassName}>
-              <a href="#">Categorias</a>
+              <Link to="/login">Categorias</Link>
             </li>
           </ul>
         </div>
         <div className="flex items-center">
-          <img
-            src="https://via.placeholder.com/50"
-            alt="placeholder img"
-            className="rounded-full w-[50px] h-[50px] mr-6"
-          />
+          {user && (
+            <img
+              src={
+                user.photoURL ? user.photoURL : 'https://via.placeholder.com/50'
+              }
+              alt="placeholder img"
+              className="rounded-full w-[50px] h-[50px] mr-6"
+            />
+          )}
+
           <List
             size={32}
             className="cursor-pointer md:hidden"

@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth'
 import { auth } from '../../services/fireBaseConfig'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export function Register() {
   const [email, setEmail] = useState('')
@@ -16,8 +18,12 @@ export function Register() {
       .then((result) => {
         result.user.displayName = name
         console.log(result)
+        toast.success('Usuário cadastrado com sucesso!')
       })
-      .catch((error) => console.log(error))
+      .catch((error) => {
+        console.log(error)
+        toast.error('Algo deu errado 😔')
+      })
   }
   return (
     <div className="md:w-3/5 w-4/5 mx-auto my-6 h-[70vh] flex flex-col items-center justify-center">
@@ -74,6 +80,7 @@ export function Register() {
           </div>
         </form>
       </div>
+      <ToastContainer />
     </div>
   )
 }
