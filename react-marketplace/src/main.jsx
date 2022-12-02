@@ -6,9 +6,9 @@ import {
   RouterProvider,
   Route
 } from "react-router-dom";
-import AddProduct from './components/AddProduct';
-import { Login } from './components/Login';
-import { Register } from './components/Register';
+import AddProduct from './routes/AddProduct';
+import { Login } from './routes/Login';
+import { Register } from './routes/Register';
 
 import ErrorPage from './error-page';
 import './index.css';
