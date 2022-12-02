@@ -13,8 +13,11 @@ import { Register } from './routes/Register';
 import ErrorPage from './error-page';
 import './index.css';
 import Root from './routes/root';
+import Header from './components/Header';
 
 const router = createBrowserRouter([
+  
+
   {
     path:"/",
     element:<Root />,
