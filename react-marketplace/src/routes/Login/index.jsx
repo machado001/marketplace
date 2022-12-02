@@ -39,10 +39,13 @@ export function Login() {
   }
 
   return (
-    <div className="md:w-3/5 w-4/5 mx-auto my-6 h-[70vh] flex flex-col items-center justify-center">
-      <div className=" shadow w-4/5 py-4 md:py-8 md:px-16 px-4">
+    <div className="flex flex-col items-center justify-center h-[100vh]">
+      <div className="shadow-lg bg-white md:w-2/4 w-5/6 p-8">
         <header>
-          <h1 className="text-3xl w-full mb-6 text-indigo-900">Faça Login</h1>
+          <img src="../../assets/GGH.svg" alt="" />
+          <h1 className="font-semibold text-3xl w-full mb-6 text-indigo-900">
+            Faça
+          </h1>
         </header>
         <form className="">
           <div className="mb-3">
@@ -97,7 +100,7 @@ export function Login() {
           <div className="w-full flex justify-center">
             <button
               type="button"
-              className="border rounded-full p-2 bg-gradient-to-b from-indigo-600 to-indigo-400 hover:scale-110 transition-transform shadow"
+              className="border rounded-full p-2 bg-gradient-to-b from-indigo-600 to-indigo-400 hover:scale-110 transition-transform shadow-md"
               onClick={handleGoogleSignup}
             >
               <GoogleLogo size={24} weight="bold" className="text-white" />

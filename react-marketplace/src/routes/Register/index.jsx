@@ -26,10 +26,12 @@ export function Register() {
       })
   }
   return (
-    <div className="flex flex-col items-center justify-center">
-      <div className="shadow md:w-2/4 w-5/6 p-8">
+    <div className="flex flex-col h-[100vh] items-center justify-center">
+      <div className="shadow-lg bg-white md:w-2/4 w-5/6 p-8">
         <header className="header">
-          <h1 className="text-3xl w-full mb-6 text-indigo-900">Registre-se</h1>
+          <h1 className="font-semibold text-3xl w-full mb-6 text-indigo-900">
+            Registre-se
+          </h1>
         </header>
         <form>
           <div className="mb-3">
