@@ -63,12 +63,13 @@ export default function AddProduct() {
                 id="productDesc"
                 cols="30"
                 rows="5"
-                placeholder="Ex: Notebook usado durante 6 meses, bem reservado..."
+                placeholder="Ex: usado durante 6 meses, bem reservado..."
                 onChange={(e) => setProductDesc(e.target.value)}
               ></textarea>
             </div>
           </div>
           <div>
+            <span className="block text-center">Foto do produto</span>
             <div className="flex flex-col items-center">
               <img
                 className="h-44 p-4 shadow mt-4 mb-1"
