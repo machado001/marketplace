@@ -69,7 +69,6 @@ export default function AddProduct() {
             </div>
           </div>
           <div>
-            <span>Foto do produto</span>
             <div className="flex flex-col items-center">
               <img
                 className="h-44 p-4 shadow mt-4 mb-1"
@@ -81,7 +80,7 @@ export default function AddProduct() {
                   htmlFor="upload"
                   className="px-2 py-1 border bg-gradient-to-b from-indigo-500 to-indigo-400 rounded mb-3 cursor-pointer"
                 >
-                  <p className="text-indigo-50">Escolher foto</p>
+                  <p className="text-indigo-50 ">Escolher foto</p>
                   <input
                     id="upload"
                     className="hidden"
