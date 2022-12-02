@@ -1,20 +1,43 @@
-import react from '../../assets/react.svg'
 import { useState } from 'react'
 import { CaretRight, CaretUp } from 'phosphor-react'
-import { storage } from '../../services/fireBaseConfig'
-import { ref, uploadBytes } from 'firebase/storage'
+import { storage, db } from '../../services/fireBaseConfig'
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { collection, addDoc } from 'firebase/firestore'
 import { v4 } from 'uuid'
 
 export default function AddProduct() {
   const [image, setImage] = useState()
   const [preview, setPreview] = useState()
+
+  const [productName, setProductName] = useState('')
+  const [productDesc, setProductDesc] = useState('')
+  const [productCategory, setProductCategory] = useState('')
+  const [productPrice, setProductPrice] = useState(0)
+  const [productStock, setProductStock] = useState(0)
+  const [productImage, setProductImage] = useState('')
+
+  const productsRef = collection(db, 'products')
+
+  async function HandleAddProduct() {
+    const newDoc = await addDoc(productsRef, {
+      productName: productName,
+      productDesc: productDesc,
+      productCategory: productCategory,
+      productPrice: productPrice,
+      productStock: productStock,
+      productImage: productImage,
+    })
+  }
+
   function UploadImage() {
     if (!image) return
 
     const imgRef = ref(storage, `images/${image.name + v4()}`)
 
     uploadBytes(imgRef, image).then(() => {
-      console.log('ihaaaa')
+      getDownloadURL(imgRef).then((url) => {
+        setProductImage(url)
+      })
     })
   }
   return (
@@ -30,6 +53,7 @@ export default function AddProduct() {
                 type="text"
                 id="productName"
                 placeholder="Ex: Notebook Lenovo"
+                onChange={(e) => setProductName(e.target.value)}
               />
             </div>
             <div>
@@ -40,6 +64,7 @@ export default function AddProduct() {
                 cols="30"
                 rows="5"
                 placeholder="Ex: Notebook usado durante 6 meses, bem reservado..."
+                onChange={(e) => setProductDesc(e.target.value)}
               ></textarea>
             </div>
           </div>
@@ -87,8 +112,12 @@ export default function AddProduct() {
         <div className="mb-4 mt-2">
           <div className="flex flex-col">
             <label htmlFor="tags">Categoria do produto</label>
-            <select className="border-2 p-1 outline-none md:w-2/4">
+            <select
+              className="border-2 p-1 outline-none md:w-2/4"
+              onChange={(e) => setProductCategory(e.target.value)}
+            >
               <option>Eletrônicos</option>
+              <option>disgrasa</option>
             </select>
           </div>
         </div>
@@ -99,6 +128,7 @@ export default function AddProduct() {
               type="number"
               placeholder="R$"
               className="outline-none border-2 p-1"
+              onChange={(e) => setProductPrice(e.target.value)}
             />
           </div>
           <div className="flex flex-col">
@@ -107,12 +137,14 @@ export default function AddProduct() {
               type="number"
               placeholder="Ex: 243"
               className="outline-none border-2 p-1"
+              onChange={(e) => setProductStock(e.target.value)}
             />
           </div>
         </div>
         <button
           className="px-4 py-2 border bg-gradient-to-b from-indigo-500 to-indigo-400 rounded mb-3 mt-3"
           type="button"
+          onClick={HandleAddProduct}
         >
           <div className="flex items-center">
             <p className="pr-2 text-indigo-50 font-bold">Adicionar</p>
