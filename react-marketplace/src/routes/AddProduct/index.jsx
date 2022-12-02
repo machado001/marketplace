@@ -49,7 +49,9 @@ export default function AddProduct() {
         <div className="md:flex gap-12 mb-4">
           <div className="h-5/6">
             <div className="flex flex-col mb-4">
-              <label htmlFor="productName">Título do produto</label>
+              <label htmlFor="productName">
+                Título do produto alterado dog
+              </label>
               <input
                 className="outline-0 border-2 rounded px-3 py-2 w-full"
                 type="text"
