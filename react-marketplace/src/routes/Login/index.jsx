@@ -27,6 +27,7 @@ export function Login() {
       })
       .catch((error) => {
         console.log(error)
+        navigate('/')
         toast.error('Algo deu errado 😔')
       })
   }
@@ -35,7 +36,7 @@ export function Login() {
     signin(user.email, user.password)
       .then((result) => {
         console.log(result)
-        toast(`Seja bem vindo! ${result.user.displayName}`)
+        navigate('/')
       })
       .catch((error) => {
         console.log(error)

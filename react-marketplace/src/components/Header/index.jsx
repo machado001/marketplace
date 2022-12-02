@@ -36,7 +36,7 @@ export default function Header() {
               }
             >
               <li className={itemNavBarClassName}>
-                <Link to="/login">Produtos recentes</Link>
+                <Link to="/produtos">Produtos recentes</Link>
               </li>
               <li className={itemNavBarClassName}>
                 <Link to="/add-product">Adicionar produtos</Link>
@@ -57,12 +57,17 @@ export default function Header() {
                 }
                 alt=""
               />
-              <button
-                onClick={handleLogout}
-                className="absolute top-16 hidden truncate shadow rounded-md group-hover:h-8 group-hover:block bg-indigo-500 px-2 py-1 transition"
-              >
-                <p className="text-gray-800">Deslogar</p>
-              </button>
+              <div className="absolute shadow-lg w-[86px] top-16 h-0 truncate rounded-md group-hover:h-20 group-hover:flex bg-indigo-500 px-2 py-1 transition-all flex-col justify-evenly">
+                <p className="text-gray-800 p-1 w-full transition hover:bg-indigo-600 rounded-md">
+                  <Link to={'/profile'}>Perfil</Link>
+                </p>
+                <p
+                  className="text-gray-800 p-1 w-full transition hover:bg-indigo-600 rounded-md"
+                  onClick={handleLogout}
+                >
+                  Sair
+                </p>
+              </div>
             </div>
             <div className="flex items-center">
               <List

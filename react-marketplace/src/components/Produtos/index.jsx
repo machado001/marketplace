@@ -1,3 +1,3 @@
-export default function ProdutosRestantes({ categoria }) {
+export default function Produtos({ categoria }) {
   return <div>jidsai</div>
 }
