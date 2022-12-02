@@ -1,19 +1,31 @@
+
 import { getAuth } from 'firebase/auth'
 import { List } from 'phosphor-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../../context/authContext'
 
 export default function Header() {
   const [mobileMenu, setMobileMenu] = useState(false)
   const itemNavBarClassName =
     'transition ease-in-out my-2 p-3 hover:bg-indigo-500 rounded-md cursor-pointer'
-  const user = getAuth().currentUser
+
+  const { user, logout, loading } = useAuth()
 
   function handleMenuClick() {
     setMobileMenu((current) => !current)
   }
+
+  const handleLogout = async () => {
+    await logout() 
+  }
+
+  if (loading) return <h1>carregando</h1>
+
   return (
     <header>
+      <h1>aaaa {user.email}</h1>
+      <button onClick={handleLogout}>Logout</button>
       <nav className="shadow px-6 py-2 w-full bg-indigo-400 flex justify-between items-center z-[2]">
         <div className="md:flex">
           <img
@@ -40,16 +52,7 @@ export default function Header() {
           </ul>
         </div>
         <div className="flex items-center">
-          {user && (
-            <img
-              src={
-                user.photoURL ? user.photoURL : 'https://via.placeholder.com/50'
-              }
-              alt="placeholder img"
-              className="rounded-full w-[50px] h-[50px] mr-6"
-              name={user.displayName}
-            />
-          )}
+      
 
           <List
             size={32}
@@ -62,3 +65,4 @@ export default function Header() {
     </header>
   )
 }
+
