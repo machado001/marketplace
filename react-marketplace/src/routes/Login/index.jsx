@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CaretRight, GoogleLogo } from 'phosphor-react'
-
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth'
 import { auth } from '../../services/fireBaseConfig'
 import { GoogleAuthProvider, signInWithPopup, getAuth } from 'firebase/auth'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import GGH from '../../assets/GGH.svg'
 
 export function Login() {
   const [email, setEmail] = useState('')
@@ -17,34 +19,33 @@ export function Login() {
     signInWithPopup(auth, provider)
       .then((result) => {
         console.log(result)
+        toast(`Seja bem vindo! ${result.user.displayName}`)
       })
       .catch((error) => {
         console.log(error)
+        toast.error('Algo deu errado 😔')
       })
   }
   function handleLogin() {
     signInWithEmailAndPassword(email, password)
       .then((result) => {
-        console.log(result)
         const user = getAuth().currentUser
         console.log(user)
+        toast(`Seja bem vindo! ${user.user.displayName}`)
       })
       .catch((error) => {
         console.log(error)
+        toast.error('Algo deu errado 😔')
       })
-  }
-
-  if (user) {
-    return console.log(user)
   }
 
   return (
     <div className="flex flex-col items-center justify-center h-[100vh]">
       <div className="shadow-lg bg-white md:w-2/4 w-5/6 p-8">
         <header>
-          <img src="../../assets/GGH.svg" alt="" />
+          <img src={GGH} alt="ggh logo" className="mb-6" />
           <h1 className="font-semibold text-3xl w-full mb-6 text-indigo-900">
-            Faça
+            Faça Login
           </h1>
         </header>
         <form className="">
@@ -108,6 +109,7 @@ export function Login() {
           </div>
         </form>
       </div>
+      <ToastContainer />
     </div>
   )
 }
