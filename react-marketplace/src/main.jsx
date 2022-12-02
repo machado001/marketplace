@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { AuthProvider } from "./context/authContext"
+import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute"
 
 import {
   createBrowserRouter,
@@ -17,7 +19,10 @@ import Root from './routes/root';
 const router = createBrowserRouter([
   {
     path:"/",
-    element:<Root />,
+    element:<ProtectedRoute>
+      <Root />
+      </ProtectedRoute>
+    ,
     errorElement:<ErrorPage />
   },
   {
@@ -37,6 +42,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <AuthProvider>
     <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 )

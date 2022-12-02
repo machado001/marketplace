@@ -1,42 +1,28 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CaretRight, GoogleLogo } from 'phosphor-react'
-
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth'
-import { auth } from '../../services/fireBaseConfig'
-import { GoogleAuthProvider, signInWithPopup, getAuth } from 'firebase/auth'
+import { useAuth } from "../../context/authContext";
+import  { useNavigate }  from 'react-router-dom';
 
 export function Login() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [signInWithEmailAndPassword, user, loading, error] =
-    useSignInWithEmailAndPassword(auth)
 
-  function handleGoogleSignup() {
-    const provider = new GoogleAuthProvider()
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        console.log(result)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
-  function handleLogin() {
-    signInWithEmailAndPassword(email, password)
-      .then((result) => {
-        console.log(result)
-        const user = getAuth().currentUser
-        console.log(user)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  })
+
+  const navigate = useNavigate();
+
+  const { signin } = useAuth()
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await signin(user.email, user.password);
+    navigate("/"); 
   }
 
-  if (user) {
-    return console.log(user)
-  }
+  const handleChange = ({target: {name, value}}) => setUser({...user, [name]: value})
+
 
   return (
     <div className="flex flex-col items-center justify-center h-[100vh]">
@@ -53,7 +39,7 @@ export function Login() {
               name="email"
               id="email"
               placeholder="Seu email"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleChange}
               className="outline-0 border-2 rounded px-3 py-2 w-full"
             />
           </div>
@@ -63,7 +49,7 @@ export function Login() {
               name="password"
               id="password"
               placeholder="Sua senha"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handleChange}
               className="outline-0 border-2 rounded px-3 py-2 w-full"
             />
           </div>
@@ -74,7 +60,7 @@ export function Login() {
           </p>
           <button
             className="px-4 py-2 border bg-gradient-to-b from-indigo-500 to-indigo-400 rounded mb-3"
-            onClick={handleLogin}
+            onClick={handleSubmit}
             type="button"
           >
             <div className="flex items-center">
@@ -100,7 +86,6 @@ export function Login() {
             <button
               type="button"
               className="border rounded-full p-2 bg-gradient-to-b from-indigo-600 to-indigo-400 hover:scale-110 transition-transform shadow-md"
-              onClick={handleGoogleSignup}
             >
               <GoogleLogo size={24} weight="bold" className="text-white" />
             </button>
