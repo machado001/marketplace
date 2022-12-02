@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CaretRight, GoogleLogo } from 'phosphor-react'
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth'
 import { auth } from '../../services/fireBaseConfig'
-import { GoogleAuthProvider, signInWithPopup, getAuth } from 'firebase/auth'
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import GGH from '../../assets/GGH.svg'
@@ -31,9 +30,18 @@ export function Login() {
         toast.error('Algo deu errado 😔')
       })
   }
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
-    await signin(user.email, user.password)
+    signin(user.email, user.password)
+      .then((result) => {
+        console.log(result)
+        toast(`Seja bem vindo! ${result.user.displayName}`)
+      })
+      .catch((error) => {
+        console.log(error)
+        toast.error('Algo deu errado 😔')
+      })
+
     navigate('/')
   }
 
