@@ -42,7 +42,7 @@ export default function AddProduct() {
   }
   return (
     <div className="flex flex-col items-center justify-center w-full mt-12">
-      <form className="shadow md:w-4/5 sm:w-5/6 lg:w-2/4 p-8">
+      <form className="shadow-lg md:w-4/5 sm:w-5/6 lg:w-2/4 p-8">
         <h1 className="text-3xl mb-6 text-indigo-900">Adicionar Produto</h1>
         <div className="md:flex gap-12 mb-4">
           <div className="h-5/6">
