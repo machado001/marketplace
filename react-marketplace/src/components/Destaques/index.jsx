@@ -1,3 +1,4 @@
+
 import Carousel from "../Carousel"
 
 export default function Destaques() {
@@ -10,3 +11,4 @@ return (
     
 )
 }
+

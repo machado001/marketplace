@@ -1,3 +1,4 @@
+
 import { getAuth } from 'firebase/auth'
 import { List } from 'phosphor-react'
 import { useState } from 'react'
@@ -62,3 +63,4 @@ export default function Header() {
     </header>
   )
 }
+
