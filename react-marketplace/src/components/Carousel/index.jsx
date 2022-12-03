@@ -42,7 +42,10 @@ export default function Carousel() {
             />
             <ul className="space-y-4 ml-5">
               <li className="h-8 w-36 truncate">
-                <span className=" rounded cursor-default w-full">
+                <span
+                  title={product.productName}
+                  className=" rounded cursor-default w-full"
+                >
                   {product.productName}
                 </span>
               </li>
@@ -56,7 +59,7 @@ export default function Carousel() {
                   target="_blank"
                   rel="noopener noreferrer"
                   href="https://www.youtube.com/watch?v=dKD4o-jrvTE"
-                  className="rounded bg-indigo-200 p-2 font-semibold flex items-center justify-between w-28"
+                  className="rounded bg-indigo-200 p-2 font-medium flex items-center justify-between w-28"
                 >
                   Detalhes <CaretRight />
                 </a>
