@@ -17,7 +17,7 @@ export default function Carousel() {
       ref={carousel}
       whiletap={{ cursor: 'grabbing' }}
       id="carousel-section"
-      className="border-solid w-full max-w-2xl min-h-[10vh] overflow-hidden mx-auto bg-slate-200 shadow	 "
+      className="border-solid w-full max-w-[90%] min-h-[10vh] overflow-hidden mx-auto bg-slate-200 shadow	 "
     >
       {/* <img src="" alt="left-arrow" /> */}
       <motion.div
