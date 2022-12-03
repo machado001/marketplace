@@ -28,7 +28,7 @@ export default function Carousel() {
                  <ul className='space-y-4 ml-5 mt-8'>
                      <li ><span className='italic bg-slate-300 p-2 rounded'>{product.productName}</span></li>
                      <li ><span className='text-lime-500 bg-slate-300 p-2 rounded'>{product.productPrice}</span></li>
-                     <li ><a target="_blank" href='https://www.youtube.com/watch?v=dKD4o-jrvTE' className='rounded bg-blue-200 p-2 font-medium bg-slate-300 	
+                     <li ><a target="_blank" rel="noopener noreferrer" href='https://www.youtube.com/watch?v=dKD4o-jrvTE' className='rounded bg-blue-200 p-2 font-medium bg-slate-300 	
 '>More Details...</a></li>
                  </ul>
                 </motion.div>
