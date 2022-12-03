@@ -24,6 +24,8 @@ export default function Header() {
 
   return (
     <header>
+      <h1>aaaa </h1>
+      <button onClick={handleLogout}>Logout</button>
       <nav className="shadow px-6 py-2 w-full bg-indigo-400 flex justify-between items-center z-[2]">
         <div className="flex justify-between w-full z-[99999]">
           <div className="flex items-center">
