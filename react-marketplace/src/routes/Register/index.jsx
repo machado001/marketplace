@@ -4,6 +4,7 @@ import { useAuth } from "../../context/authContext";
 import  { useNavigate }  from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import GGH from '../../assets/GGH.svg'
 
 export function Register() {
 
@@ -27,6 +28,7 @@ export function Register() {
     <div className="flex flex-col h-[100vh] items-center justify-center">
       <div className="shadow-lg bg-white md:w-2/4 w-5/6 p-8">
         <header className="header">
+          <img src={GGH} alt="ggh logo" className="mb-6" />
           <h1 className="font-semibold text-3xl w-full mb-6 text-indigo-900">
             Registre-se
           </h1>

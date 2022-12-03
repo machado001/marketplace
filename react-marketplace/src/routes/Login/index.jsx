@@ -1,36 +1,61 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CaretRight, GoogleLogo } from 'phosphor-react'
-import { useAuth } from "../../context/authContext";
-import  { useNavigate }  from 'react-router-dom';
+import { auth } from '../../services/fireBaseConfig'
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import GGH from '../../assets/GGH.svg'
+import { useAuth } from '../../context/authContext'
+import { useNavigate } from 'react-router-dom'
 
 export function Login() {
-
   const [user, setUser] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   })
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const { signin } = useAuth()
+  function handleGoogleSignup() {
+    const provider = new GoogleAuthProvider()
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        console.log(result)
+        toast(`Seja bem vindo! ${result.user.displayName}`)
+      })
+      .catch((error) => {
+        console.log(error)
+        navigate('/')
+        toast.error('Algo deu errado 😔')
+      })
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    signin(user.email, user.password)
+      .then((result) => {
+        console.log(result)
+        navigate('/')
+      })
+      .catch((error) => {
+        console.log(error)
+        toast.error('Algo deu errado 😔')
+      })
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await signin(user.email, user.password);
-    navigate("/"); 
+    navigate('/')
   }
 
-  const handleChange = ({target: {name, value}}) => setUser({...user, [name]: value})
-
+  const handleChange = ({ target: { name, value } }) =>
+    setUser({ ...user, [name]: value })
 
   return (
     <div className="flex flex-col items-center justify-center h-[100vh]">
       <div className="shadow-lg bg-white md:w-2/4 w-5/6 p-8">
         <header>
-          <img src="../../assets/GGH.svg" alt="" />
+          <img src={GGH} alt="ggh logo" className="mb-6" />
           <h1 className="font-semibold text-3xl w-full mb-6 text-indigo-900">
-            Faça
+            Faça Login
           </h1>
         </header>
         <form className="">
@@ -85,6 +110,7 @@ export function Login() {
           </div>
           <div className="w-full flex justify-center">
             <button
+              onClick={handleGoogleSignup}
               type="button"
               className="border rounded-full p-2 bg-gradient-to-b from-indigo-600 to-indigo-400 hover:scale-110 transition-transform shadow-md"
             >
@@ -93,6 +119,7 @@ export function Login() {
           </div>
         </form>
       </div>
+      <ToastContainer />
     </div>
   )
 }
