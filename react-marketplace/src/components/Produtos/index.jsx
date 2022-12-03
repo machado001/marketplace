@@ -2,23 +2,42 @@ import productsMock from '../../productsMock'
 import { v4 } from 'uuid'
 import { CaretRight } from 'phosphor-react'
 import { useState } from 'react'
+import { useEffect } from 'react'
 
 export default function Produtos() {
   const [price, setPrice] = useState(10)
-  const [category, setCategory] = useState('')
+  const [category, setCategory] = useState('Nenhum')
   const [products, setProducts] = useState(productsMock)
+  const [search, setSearch] = useState('')
 
+  useEffect(() => {
+    handleFilteringbyCategory()
+  }, [category])
+
+  function handleFilteringbySearch() {
+    const newProducts = productsMock.filter((product) =>
+      product.productName.toUpperCase().includes(search.toUpperCase())
+    )
+    setProducts(newProducts)
+    console.log(search)
+  }
   function handleFilteringbyPrice(filter) {
     const newProducts = productsMock.filter(
       (product) => product.productPrice <= filter
     )
     setProducts(newProducts)
   }
-  function handleFilteringbyCategory(filter) {
-    // const newProducts = productsMock.filter(
-    //   (product) => product.productCategory === filter
-    // )
-    console.log(category)
+  function handleFilteringbyCategory() {
+    if (category === 'Nenhum') {
+      setProducts(productsMock)
+    } else {
+      const newProducts = productsMock.filter(
+        (product) => product.productCategory === category
+      )
+      setProducts(newProducts)
+    }
+
+    console.log(productsMock)
   }
   return (
     <div className="flex justify-center">
@@ -39,11 +58,13 @@ export default function Produtos() {
                 id="default-search"
                 className="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-3xl bg-gray-5 outline-0"
                 placeholder="Ex: Geladeira"
+                onChange={(e) => setSearch(e.target.value)}
                 required
               />
               <button
-                type="submit"
+                type="button"
                 className="text-white absolute right-2.5 transition bottom-2.5 bg-indigo-600 hover:bg-indigo-800 font-medium rounded-lg text-sm px-3 py-2"
+                onClick={handleFilteringbySearch}
               >
                 <svg
                   aria-hidden="true"
@@ -64,6 +85,7 @@ export default function Produtos() {
             </div>
           </form>
         </div>
+        <hr />
         <div className="categorias">
           Liste por categoria
           <form className="flex flex-col gap-2">
@@ -73,64 +95,19 @@ export default function Produtos() {
                 id="Nenhum"
                 value="Nenhum"
                 name="categorySelected"
-                onChange={
-                  ((e) => setCategory(e.target.value),
-                  handleFilteringbyCategory(category))
-                }
+                onChange={(e) => setCategory(e.target.value)}
               />
               <label htmlFor="Nenhum">Nenhum</label>
             </div>
             <div className="flex gap-2">
               <input
                 type="radio"
-                id="Computadores"
-                value="Computadores"
+                id="Figure Actions"
+                value="Figure Actions"
                 name="categorySelected"
-                onChange={
-                  ((e) => setCategory(e.target.value),
-                  handleFilteringbyCategory(category))
-                }
+                onChange={(e) => setCategory(e.target.value)}
               />
-              <label htmlFor="Computadores">Computadores</label>
-            </div>
-            <div className="flex gap-2">
-              <input
-                type="radio"
-                id="Roupas"
-                value="Roupas"
-                name="categorySelected"
-                onChange={
-                  ((e) => setCategory(e.target.value),
-                  handleFilteringbyCategory(category))
-                }
-              />
-              <label htmlFor="Roupas">Roupas</label>
-            </div>
-            <div className="flex gap-2">
-              <input
-                type="radio"
-                id="Celulares"
-                value="Celulares"
-                name="categorySelected"
-                onChange={
-                  ((e) => setCategory(e.target.value),
-                  handleFilteringbyCategory(category))
-                }
-              />
-              <label htmlFor="Celulares">Celulares</label>
-            </div>
-            <div className="flex gap-2">
-              <input
-                type="radio"
-                id="Automóveis"
-                value="Automóveis"
-                name="categorySelected"
-                onChange={
-                  ((e) => setCategory(e.target.value),
-                  handleFilteringbyCategory(category))
-                }
-              />
-              <label htmlFor="Automóveis">Automóveis</label>
+              <label htmlFor="Figure Actions">Figure Actions</label>
             </div>
             <div className="flex gap-2">
               <input
@@ -138,15 +115,43 @@ export default function Produtos() {
                 id="Eletrodomésticos"
                 value="Eletrodomésticos"
                 name="categorySelected"
-                onChange={
-                  ((e) => setCategory(e.target.value),
-                  handleFilteringbyCategory(category))
-                }
+                onChange={(e) => setCategory(e.target.value)}
               />
               <label htmlFor="Eletrodomésticos">Eletrodomésticos</label>
             </div>
+            <div className="flex gap-2">
+              <input
+                type="radio"
+                id="Games"
+                value="Games"
+                name="categorySelected"
+                onChange={(e) => setCategory(e.target.value)}
+              />
+              <label htmlFor="Games">Games</label>
+            </div>
+            <div className="flex gap-2">
+              <input
+                type="radio"
+                id="Videogames"
+                value="Videogames"
+                name="categorySelected"
+                onChange={(e) => setCategory(e.target.value)}
+              />
+              <label htmlFor="Videogames">Videogames</label>
+            </div>
+            <div className="flex gap-2">
+              <input
+                type="radio"
+                id="TV's"
+                value="TV's"
+                name="categorySelected"
+                onChange={(e) => setCategory(e.target.value)}
+              />
+              <label htmlFor="TV's">TV's</label>
+            </div>
           </form>
         </div>
+        <hr />
         <div className="preços">
           Filtre por preço
           <div className="w-full">
