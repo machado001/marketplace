@@ -12,16 +12,12 @@ import ErrorPage from './error-page'
 import './index.css'
 import Root from './routes/root'
 import Produtos from './components/Produtos'
-import Profile from './components/Profile/index.jsx'
+import Profile from './components/Profile'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: (
-      <ProtectedRoute>
-        <Root />
-      </ProtectedRoute>
-    ),
+    element: <Root />,
     errorElement: <ErrorPage />,
   },
   {
@@ -34,11 +30,19 @@ const router = createBrowserRouter([
   },
   {
     path: '/profile',
-    element: <Profile />,
+    element: (
+      <ProtectedRoute>
+        <Profile />
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/add-product',
-    element: <AddProduct />,
+    element: (
+      <ProtectedRoute>
+        <AddProduct />
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/produtos',

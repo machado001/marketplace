@@ -51,7 +51,7 @@ export default function Header() {
               <img
                 className="rounded-full h-12 shadow "
                 src={
-                  user.photoURL
+                  user && user.photoURL
                     ? user.photoURL
                     : 'https://www.shareicon.net/data/256x256/2016/05/27/771338_man_512x512.png'
                 }

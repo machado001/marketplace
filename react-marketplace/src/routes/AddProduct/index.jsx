@@ -4,6 +4,7 @@ import { storage, db } from '../../services/fireBaseConfig'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { collection, addDoc } from 'firebase/firestore'
 import { v4 } from 'uuid'
+import { useAuth } from '../../context/authContext'
 
 export default function AddProduct() {
   const [image, setImage] = useState()
@@ -11,10 +12,12 @@ export default function AddProduct() {
 
   const [productName, setProductName] = useState('')
   const [productDesc, setProductDesc] = useState('')
-  const [productCategory, setProductCategory] = useState('')
+  const [productCategory, setProductCategory] = useState('Computadores')
   const [productPrice, setProductPrice] = useState(0)
   const [productStock, setProductStock] = useState(0)
   const [productImage, setProductImage] = useState('')
+
+  const { user, logout, loading } = useAuth()
 
   const productsRef = collection(db, 'products')
 
@@ -26,6 +29,7 @@ export default function AddProduct() {
       productPrice: productPrice,
       productStock: productStock,
       productImage: productImage,
+      productOwner: user && user.email,
     })
   }
 
@@ -49,9 +53,7 @@ export default function AddProduct() {
         <div className="md:flex gap-12 mb-4">
           <div className="h-5/6">
             <div className="flex flex-col mb-4">
-              <label htmlFor="productName">
-                Título do produto alterado dog
-              </label>
+              <label htmlFor="productName">Título do produto</label>
               <input
                 className="outline-0 border-2 rounded px-3 py-2 w-full"
                 type="text"
