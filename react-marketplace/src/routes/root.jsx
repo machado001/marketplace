@@ -10,7 +10,6 @@ export default function Root() {
       <Destaques />
       <Produtos />
       <Footer />
-
     </>
   )
 }

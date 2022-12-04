@@ -11,7 +11,7 @@ export default function Profile() {
           <h1 className="font-semibold text-3xl w-full mb-6 text-indigo-900">
             Perfil
           </h1>
-          <div className="2INPUTS+1IMG flex  w-full justify-between mb-6">
+          <div className="2INPUTS+1IMG flex flex-col-reverse md:flex-row w-full justify-between mb-6">
             <div className="w-full">
               <div className="flex flex-col mb-3">
                 <label>Nome</label>

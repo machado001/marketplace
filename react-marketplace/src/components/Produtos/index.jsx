@@ -40,11 +40,11 @@ export default function Produtos() {
     console.log(productsMock)
   }
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center mb-24">
       <div className="w-full flex flex-col gap-8  w-[30%] h-[90vh]">
         <div className="pesquisa">
           Filtre por nome
-          <form className="w-full">
+          <div className="w-full">
             <label
               htmlFor="default-search"
               className="mb-10 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -83,12 +83,12 @@ export default function Produtos() {
                 </svg>
               </button>
             </div>
-          </form>
+          </div>
         </div>
         <hr />
         <div className="categorias">
           Liste por categoria
-          <form className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2">
             <div className="flex gap-2">
               <input
                 type="radio"
@@ -149,7 +149,7 @@ export default function Produtos() {
               />
               <label htmlFor="TV's">TV's</label>
             </div>
-          </form>
+          </div>
         </div>
         <hr />
         <div className="preços">
