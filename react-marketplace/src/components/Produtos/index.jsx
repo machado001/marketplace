@@ -120,7 +120,7 @@ export default function Produtos() {
         </div>
         <hr />
         <div className="preços">
-          Filtre por preço
+          Filtre por preço (valor máximo)
           <div className="w-full">
             <input
               type="number"
