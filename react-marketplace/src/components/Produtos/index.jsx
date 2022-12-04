@@ -1,4 +1,7 @@
 import productsMock from '../../productsMock'
+import productsDB from '../../products'
+import categories from '../../categories'
+import imgplaceholder from '../../assets/images/placeholderimg.jpg'
 import { v4 } from 'uuid'
 import { CaretRight } from 'phosphor-react'
 import { useState } from 'react'
@@ -7,7 +10,7 @@ import { useEffect } from 'react'
 export default function Produtos() {
   const [price, setPrice] = useState(10)
   const [category, setCategory] = useState('Nenhum')
-  const [products, setProducts] = useState(productsMock)
+  const [products, setProducts] = useState(productsDB)
   const [search, setSearch] = useState('')
 
   useEffect(() => {
@@ -15,23 +18,24 @@ export default function Produtos() {
   }, [category])
 
   function handleFilteringbySearch() {
-    const newProducts = productsMock.filter((product) =>
+    const newProducts = productsDB.filter((product) =>
       product.productName.toUpperCase().includes(search.toUpperCase())
     )
     setProducts(newProducts)
     console.log(search)
   }
   function handleFilteringbyPrice(filter) {
-    const newProducts = productsMock.filter(
+    const newProducts = productsDB.filter(
       (product) => product.productPrice <= filter
     )
     setProducts(newProducts)
   }
   function handleFilteringbyCategory() {
     if (category === 'Nenhum') {
-      setProducts(productsMock)
+      console.log('tome')
+      setProducts(productsDB)
     } else {
-      const newProducts = productsMock.filter(
+      const newProducts = productsDB.filter(
         (product) => product.productCategory === category
       )
       setProducts(newProducts)
@@ -41,6 +45,7 @@ export default function Produtos() {
   }
   return (
     <div className="flex justify-center mb-24">
+      {console.log(productsDB)}
       <div className="w-full flex flex-col gap-8  w-[30%] h-[90vh]">
         <div className="pesquisa">
           Filtre por nome
@@ -99,56 +104,18 @@ export default function Produtos() {
               />
               <label htmlFor="Nenhum">Nenhum</label>
             </div>
-            <div className="flex gap-2">
-              <input
-                type="radio"
-                id="Figure Actions"
-                value="Figure Actions"
-                name="categorySelected"
-                onChange={(e) => setCategory(e.target.value)}
-              />
-              <label htmlFor="Figure Actions">Figure Actions</label>
-            </div>
-            <div className="flex gap-2">
-              <input
-                type="radio"
-                id="Eletrodomésticos"
-                value="Eletrodomésticos"
-                name="categorySelected"
-                onChange={(e) => setCategory(e.target.value)}
-              />
-              <label htmlFor="Eletrodomésticos">Eletrodomésticos</label>
-            </div>
-            <div className="flex gap-2">
-              <input
-                type="radio"
-                id="Games"
-                value="Games"
-                name="categorySelected"
-                onChange={(e) => setCategory(e.target.value)}
-              />
-              <label htmlFor="Games">Games</label>
-            </div>
-            <div className="flex gap-2">
-              <input
-                type="radio"
-                id="Videogames"
-                value="Videogames"
-                name="categorySelected"
-                onChange={(e) => setCategory(e.target.value)}
-              />
-              <label htmlFor="Videogames">Videogames</label>
-            </div>
-            <div className="flex gap-2">
-              <input
-                type="radio"
-                id="TV's"
-                value="TV's"
-                name="categorySelected"
-                onChange={(e) => setCategory(e.target.value)}
-              />
-              <label htmlFor="TV's">TV's</label>
-            </div>
+            {categories.map((category) => (
+              <div className="flex gap-2" key={v4()}>
+                <input
+                  type="radio"
+                  id={category}
+                  value={category}
+                  name="categorySelected"
+                  onChange={(e) => setCategory(e.target.value)}
+                />
+                <label htmlFor={category}>{category}</label>
+              </div>
+            ))}
           </div>
         </div>
         <hr />
@@ -173,7 +140,7 @@ export default function Produtos() {
             className="item-div border min-w-[200px] h-[345px] m-1 rounded shadow-lg border-solid border-gray-300 bg-zinc-50"
           >
             <img
-              src={product.productSrc}
+              src={product.productImage ? product.productImage : imgplaceholder}
               drag="x"
               alt="Highlight-Items"
               className="rounded max-w-[170px] h-[170px] pointer-events-none mx-auto shadow-sm my-3 "
