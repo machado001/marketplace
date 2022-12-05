@@ -35,10 +35,10 @@ export default function Produtos() {
       console.log('tome')
       setProducts(productsDB)
     } else {
-      const newProducts = productsDB.filter(
+      const ProductsFiltred = productsDB.filter(
         (product) => product.productCategory === category
       )
-      setProducts(newProducts)
+      setProducts(ProductsFiltred)
     }
 
     console.log(productsMock)
