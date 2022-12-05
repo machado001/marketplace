@@ -23,7 +23,6 @@ export default function Produtos() {
       product.productName.toUpperCase().includes(search.toUpperCase())
     )
     setProducts(newProducts)
-    console.log(search)
   }
   function handleFilteringbyPrice(filter) {
     const ProductsFiltred = productsDB.filter(
@@ -33,7 +32,6 @@ export default function Produtos() {
   }
   function handleFilteringbyCategory() {
     if (category === 'Nenhum') {
-      console.log('tome')
       setProducts(productsDB)
     } else {
       const ProductsFiltred = productsDB.filter(
@@ -41,12 +39,9 @@ export default function Produtos() {
       )
       setProducts(ProductsFiltred)
     }
-
-    console.log(productsMock)
   }
   return (
     <div className="flex justify-center mb-24">
-      {console.log(productsDB)}
       <div className="w-full flex flex-col gap-8  w-[30%] h-[90vh]">
         <div className="pesquisa">
           Filtre por nome
@@ -128,7 +123,11 @@ export default function Produtos() {
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             />
-            <button className='mt-2 ml-2 rounded bg-red-300' type="button" onClick={() => handleFilteringbyPrice(price)}>
+            <button
+              className="mt-2 ml-2 rounded bg-red-300"
+              type="button"
+              onClick={() => handleFilteringbyPrice(price)}
+            >
               Filtrar
             </button>
           </div>

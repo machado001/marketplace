@@ -1,12 +1,9 @@
-import { getAuth } from 'firebase/auth'
 import { List } from 'phosphor-react'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/authContext'
 import GGH from '../../assets/GGHNEW.svg'
 import cart from '../../assets/cart.svg'
-import notification from '../../assets/notification.svg'
-import message from '../../assets/message.svg'
 
 export default function Header() {
   const [mobileMenu, setMobileMenu] = useState(false)

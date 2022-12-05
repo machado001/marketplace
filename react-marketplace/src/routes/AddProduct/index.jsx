@@ -43,7 +43,6 @@ export default function AddProduct() {
       productStock: productStock,
       productImage: productImage,
       productOwner: user && user.email,
-      productLikes: 0,
     })
   }
 
