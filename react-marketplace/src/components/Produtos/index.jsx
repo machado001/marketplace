@@ -25,10 +25,10 @@ export default function Produtos() {
     console.log(search)
   }
   function handleFilteringbyPrice(filter) {
-    const newProducts = productsDB.filter(
+    const ProductsFiltred = productsDB.filter(
       (product) => product.productPrice <= filter
     )
-    setProducts(newProducts)
+    setProducts(ProductsFiltred)
   }
   function handleFilteringbyCategory() {
     if (category === 'Nenhum') {
