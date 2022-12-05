@@ -57,7 +57,7 @@ export default function Produtos() {
               <input
                 type="search"
                 id="default-search"
-                className="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-3xl bg-gray-5 outline-0"
+                className="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-5 outline-0"
                 placeholder="Ex: Geladeira"
                 onChange={(e) => setSearch(e.target.value)}
                 required
