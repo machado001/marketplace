@@ -1,31 +1,30 @@
-import { CaretRight, Heart } from 'phosphor-react'
+import { CaretRight, ShoppingCart } from 'phosphor-react'
 import { v4 } from 'uuid'
 import { db } from '../../services/fireBaseConfig'
-import {
-  collection,
-  setDoc,
-  doc,
-  deleteDoc,
-  getDoc,
-  getDocs,
-} from 'firebase/firestore'
+import { setDoc, doc, deleteDoc, getDoc } from 'firebase/firestore'
 import imgplaceholder from '../../assets/images/placeholderimg.jpg'
 import { useAuth } from '../../context/authContext'
-import { useEffect } from 'react'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const ListedProducts = ({ products }) => {
-  const { user, logout, loading } = useAuth()
+  const { user } = useAuth()
 
   async function handleLike(id) {
     const whoLiked = await getDoc(
       doc(db, 'products', id, 'whoLiked', user.email)
     )
+    console.log('tentano da like')
     if (!whoLiked.exists()) {
       await setDoc(doc(db, 'products', id, 'whoLiked', user.email), {
         email: user.email,
       })
+      toast.success('Produto adicionado ao carrinho!')
+      console.log('like dado!')
     } else {
       await deleteDoc(doc(db, 'products', id, 'whoLiked', user.email))
+      console.log('tirano o like')
+      toast.warning('Produto retirado do carrinho.')
     }
   }
 
@@ -57,8 +56,8 @@ const ListedProducts = ({ products }) => {
                   R${product.productPrice}
                 </span>
                 <div className="flex items-center gap-1">
-                  <span>{}</span>
-                  <Heart
+                  {user && console.log(user.email)}
+                  <ShoppingCart
                     className="cursor-pointer"
                     size={20}
                     onClick={() => handleLike(product.id)}
@@ -79,6 +78,7 @@ const ListedProducts = ({ products }) => {
           </ul>
         </div>
       ))}
+      <ToastContainer />
     </div>
   )
 }

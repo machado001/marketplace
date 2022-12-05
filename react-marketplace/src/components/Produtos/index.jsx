@@ -1,4 +1,3 @@
-import productsMock from '../../productsMock'
 import productsDB from '../../products'
 import categories from '../../categories'
 
@@ -9,7 +8,7 @@ import { useEffect } from 'react'
 import ListedProducts from '../ListedProducts'
 
 export default function Produtos() {
-  const [price, setPrice] = useState(10)
+  const [price, setPrice] = useState()
   const [category, setCategory] = useState('Nenhum')
   const [products, setProducts] = useState(productsDB)
   const [search, setSearch] = useState('')
@@ -17,14 +16,24 @@ export default function Produtos() {
   useEffect(() => {
     handleFilteringbyCategory()
   }, [category])
+  useEffect(() => {
+    handleFilteringbySearch()
+  }, [search])
 
   function handleFilteringbySearch() {
-    const newProducts = productsDB.filter((product) =>
-      product.productName.toUpperCase().includes(search.toUpperCase())
-    )
-    setProducts(newProducts)
+    if (search === '') {
+      setProducts(productsDB)
+    } else {
+      const newProducts = productsDB.filter((product) =>
+        product.productName.toUpperCase().includes(search.toUpperCase())
+      )
+      setProducts(newProducts)
+    }
   }
   function handleFilteringbyPrice(filter) {
+    if (Number(filter) === 0) {
+      return
+    }
     const ProductsFiltred = productsDB.filter(
       (product) => Number(product.productPrice) <= Number(filter)
     )
@@ -41,7 +50,7 @@ export default function Produtos() {
     }
   }
   return (
-    <div className="flex justify-center mb-24">
+    <div className="flex justify-center mb-36">
       <div className="w-full flex flex-col gap-8  w-[30%] h-[90vh]">
         <div className="pesquisa">
           Filtre por nome
@@ -57,32 +66,10 @@ export default function Produtos() {
               <input
                 type="search"
                 id="default-search"
-                className="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-3xl bg-gray-5 outline-0"
+                className="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-3xl bg-gray-5 outline-0"
                 placeholder="Ex: Geladeira"
                 onChange={(e) => setSearch(e.target.value)}
-                required
               />
-              <button
-                type="button"
-                className="text-white absolute right-2.5 transition bottom-2.5 bg-indigo-600 hover:bg-indigo-800 font-medium rounded-lg text-sm px-3 py-2"
-                onClick={handleFilteringbySearch}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="w-5 h-5 text-indigo-100"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  ></path>
-                </svg>
-              </button>
             </div>
           </div>
         </div>
@@ -100,7 +87,96 @@ export default function Produtos() {
               />
               <label htmlFor="Nenhum">Nenhum</label>
             </div>
-            {categories.map((category) => (
+
+            <div className="flex gap-2">
+              <input
+                type="radio"
+                id="Automóveis"
+                value="Automóveis"
+                name="categorySelected"
+                onChange={(e) => setCategory(e.target.value)}
+              />
+              <label htmlFor="Automóveis">Automóveis</label>
+            </div>
+
+            <div className="flex gap-2">
+              <input
+                type="radio"
+                id="Cama / mesa / banho"
+                value="Cama / mesa / banho"
+                name="categorySelected"
+                onChange={(e) => setCategory(e.target.value)}
+              />
+              <label htmlFor="Cama / mesa / banho">Cama / mesa / banho</label>
+            </div>
+
+            <div className="flex gap-2">
+              <input
+                type="radio"
+                id="Celulares"
+                value="Celulares"
+                name="categorySelected"
+                onChange={(e) => setCategory(e.target.value)}
+              />
+              <label htmlFor="Celulares">Celulares</label>
+            </div>
+
+            <div className="flex gap-2">
+              <input
+                type="radio"
+                id="Computadores"
+                value="Computadores"
+                name="categorySelected"
+                onChange={(e) => setCategory(e.target.value)}
+              />
+              <label htmlFor="Computadores">Computadores</label>
+            </div>
+
+            <div className="flex gap-2">
+              <input
+                type="radio"
+                id="Eletrodomésticos"
+                value="Eletrodomésticos"
+                name="categorySelected"
+                onChange={(e) => setCategory(e.target.value)}
+              />
+              <label htmlFor="Eletrodomésticos">Eletrodomésticos</label>
+            </div>
+
+            <div className="flex gap-2">
+              <input
+                type="radio"
+                id="Ferramentas"
+                value="Ferramentas"
+                name="categorySelected"
+                onChange={(e) => setCategory(e.target.value)}
+              />
+              <label htmlFor="Ferramentas">Ferramentas</label>
+            </div>
+
+            <div className="flex gap-2">
+              <input
+                type="radio"
+                id="Móveis"
+                value="Móveis"
+                name="categorySelected"
+                onChange={(e) => setCategory(e.target.value)}
+              />
+              <label htmlFor="Móveis">Móveis</label>
+            </div>
+
+            <div className="flex gap-2">
+              <input
+                type="radio"
+                id="Outros"
+                value="Outros"
+                name="categorySelected"
+                onChange={(e) => setCategory(e.target.value)}
+              />
+              <label htmlFor="Outros">Outros</label>
+            </div>
+
+            {/* {categories.map((category) => (
               <div className="flex gap-2" key={v4()}>
                 <input
                   type="radio"
@@ -111,14 +187,16 @@ export default function Produtos() {
                 />
                 <label htmlFor={category}>{category}</label>
               </div>
-            ))}
+            ))} */}
           </div>
         </div>
         <hr />
         <div className="preços">
-          Filtre por preço (valor máximo)
+          Filtre por preço <br />
+          (valor máximo)
           <div className="w-full">
             <input
+              className="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-3xl bg-gray-5 outline-0"
               type="number"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
