@@ -26,7 +26,7 @@ export default function Produtos() {
   }
   function handleFilteringbyPrice(filter) {
     const ProductsFiltred = productsDB.filter(
-      (product) => product.productPrice <= filter
+      (product) => Number(product.productPrice) <= Number(filter)
     )
     setProducts(ProductsFiltred)
   }
