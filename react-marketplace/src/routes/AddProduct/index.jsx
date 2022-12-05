@@ -1,10 +1,11 @@
-import { useState } from 'react'
-import { CaretRight, CaretUp } from 'phosphor-react'
+import { useState, useEffect } from 'react'
+import { CaretRight } from 'phosphor-react'
 import { storage, db } from '../../services/fireBaseConfig'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { collection, addDoc } from 'firebase/firestore'
 import { v4 } from 'uuid'
 import { useAuth } from '../../context/authContext'
+import categorias from '../../categories'
 
 export default function AddProduct() {
   const [image, setImage] = useState()
@@ -12,7 +13,7 @@ export default function AddProduct() {
 
   const [productName, setProductName] = useState('')
   const [productDesc, setProductDesc] = useState('')
-  const [productCategory, setProductCategory] = useState('Computadores')
+  const [productCategory, setProductCategory] = useState(categorias['Outros'])
   const [productPrice, setProductPrice] = useState(0)
   const [productStock, setProductStock] = useState(0)
   const [productImage, setProductImage] = useState('')
@@ -22,6 +23,16 @@ export default function AddProduct() {
   const productsRef = collection(db, 'products')
 
   async function HandleAddProduct() {
+    if (
+      !image ||
+      !productName ||
+      !productPrice ||
+      !productStock ||
+      !productDesc
+    ) {
+      alert('FUCK YES NIGAA')
+      return
+    }
     await addDoc(productsRef, {
       productName: productName,
       productDesc: productDesc,
@@ -33,6 +44,10 @@ export default function AddProduct() {
     })
   }
 
+  useEffect(() => {
+    UploadImage()
+  }, [image])
+
   function UploadImage() {
     if (!image) return
 
@@ -43,6 +58,7 @@ export default function AddProduct() {
         setProductImage(url)
       })
     })
+    console.log('nice')
   }
   return (
     <div className="flex flex-col items-center justify-center w-full mt-12">
@@ -100,16 +116,6 @@ export default function AddProduct() {
                     }}
                   />
                 </label>
-                <button
-                  type="button"
-                  className="px-2 py-1 border bg-gradient-to-b from-indigo-500 to-indigo-400 rounded mb-3 shadow"
-                  onClick={UploadImage}
-                >
-                  <div className="flex items-center">
-                    <p className="text-indigo-50 pr-2">Upar</p>
-                    <CaretUp className="text-white" weight="bold" />
-                  </div>
-                </button>
               </div>
             </div>
           </div>
@@ -122,9 +128,9 @@ export default function AddProduct() {
               className="border-2 p-1 outline-none md:w-2/4"
               onChange={(e) => setProductCategory(e.target.value)}
             >
-              <option></option>
-              <option>Computadores</option>
-              <option>Celulares</option>
+              {categorias.map((categoria) => (
+                <option value={categoria}>{categoria}</option>
+              ))}
             </select>
           </div>
         </div>

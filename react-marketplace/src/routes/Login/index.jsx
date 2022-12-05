@@ -104,7 +104,7 @@ export function Login() {
             </Link>
           </div>
           <div className="border relative mb-4">
-            <div className="absolute inset-x-1/2 translate-y-[-50%] translate-x-[-50%] font-semibold text-gray-500 bg-white text-center w-[130px]">
+            <div className="absolute inset-x-1/2 translate-y-[-50%] translate-x-[-50%] font-semibold text-gray-500 bg-white text-center w-[160px]">
               <p>Ou use o Google</p>
             </div>
           </div>
