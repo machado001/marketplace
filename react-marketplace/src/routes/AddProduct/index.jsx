@@ -6,6 +6,8 @@ import { collection, addDoc } from 'firebase/firestore'
 import { v4 } from 'uuid'
 import { useAuth } from '../../context/authContext'
 import categorias from '../../categories'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function AddProduct() {
   const [image, setImage] = useState()
@@ -30,7 +32,7 @@ export default function AddProduct() {
       !productStock ||
       !productDesc
     ) {
-      alert('FUCK YES NIGAA')
+      toast.error('Alguns campos não foram preenchidos.')
       return
     }
     await addDoc(productsRef, {
@@ -41,6 +43,7 @@ export default function AddProduct() {
       productStock: productStock,
       productImage: productImage,
       productOwner: user && user.email,
+      productLikes: 0,
     })
   }
 
@@ -165,6 +168,7 @@ export default function AddProduct() {
           </div>
         </button>
       </form>
+      <ToastContainer />
     </div>
   )
 }
