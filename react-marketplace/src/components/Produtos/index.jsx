@@ -127,8 +127,8 @@ export default function Produtos() {
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             />
-            <button type="button" onClick={() => handleFilteringbyPrice(price)}>
-              aplica
+            <button className='mt-2 ml-2 rounded bg-red-300' type="button" onClick={() => handleFilteringbyPrice(price)}>
+              Filtrar
             </button>
           </div>
         </div>
