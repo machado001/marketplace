@@ -8,11 +8,6 @@ export default function Footer() {
         <p>
           &copy; GGH - Gabriel, Gustavo & Heitor. {new Date().getFullYear()}
         </p>
-        {/* <ul className="flex">
-          <li>k</li>
-          <li>m</li>
-          <li>h</li>
-        </ul> */}
       </div>
     </div>
   )

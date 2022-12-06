@@ -6,6 +6,7 @@ import imgplaceholder from '../../assets/images/placeholderimg.jpg'
 import { useAuth } from '../../context/authContext'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { Link } from 'react-router-dom'
 
 const ListedProducts = ({ products }) => {
   const { user } = useAuth()
@@ -14,7 +15,7 @@ const ListedProducts = ({ products }) => {
     const whoLiked = await getDoc(
       doc(db, 'products', id, 'whoLiked', user.email)
     )
-
+    console.log(whoLiked)
     if (!whoLiked.exists()) {
       await setDoc(doc(db, 'products', id, 'whoLiked', user.email), {
         email: user.email,
@@ -64,14 +65,12 @@ const ListedProducts = ({ products }) => {
               </div>
             </li>
             <li>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://www.youtube.com/watch?v=dKD4o-jrvTE"
+              <Link
                 className="rounded bg-indigo-200 p-2 font-medium flex items-center justify-between w-28"
+                to={`/product/${product.id}`}
               >
                 Detalhes <CaretRight />
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

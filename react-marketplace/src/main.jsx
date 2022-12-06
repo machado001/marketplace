@@ -13,6 +13,7 @@ import './index.css'
 import Root from './routes/root'
 import Produtos from './components/Produtos'
 import Profile from './components/Profile'
+import ProductPage from './components/ProductPage'
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
         <Profile />
       </ProtectedRoute>
     ),
+  },
+  {
+    path: '/product/:id',
+    element: <ProductPage />,
   },
   {
     path: '/add-product',
