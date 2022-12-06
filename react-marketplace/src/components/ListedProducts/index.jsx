@@ -14,16 +14,15 @@ const ListedProducts = ({ products }) => {
     const whoLiked = await getDoc(
       doc(db, 'products', id, 'whoLiked', user.email)
     )
-    console.log('tentano da like')
+
     if (!whoLiked.exists()) {
       await setDoc(doc(db, 'products', id, 'whoLiked', user.email), {
         email: user.email,
       })
       toast.success('Produto adicionado ao carrinho!')
-      console.log('like dado!')
     } else {
       await deleteDoc(doc(db, 'products', id, 'whoLiked', user.email))
-      console.log('tirano o like')
+
       toast.warning('Produto retirado do carrinho.')
     }
   }
@@ -56,7 +55,6 @@ const ListedProducts = ({ products }) => {
                   R${product.productPrice}
                 </span>
                 <div className="flex items-center gap-1">
-                  {user && console.log(user.email)}
                   <ShoppingCart
                     className="cursor-pointer"
                     size={20}

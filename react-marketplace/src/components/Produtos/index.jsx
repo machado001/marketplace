@@ -1,14 +1,11 @@
 import productsDB from '../../products'
-import categories from '../../categories'
-
-import { v4 } from 'uuid'
 import { useState } from 'react'
 import { useEffect } from 'react'
 
 import ListedProducts from '../ListedProducts'
 
 export default function Produtos() {
-  const [price, setPrice] = useState()
+  const [price, setPrice] = useState(0)
   const [category, setCategory] = useState('Nenhum')
   const [products, setProducts] = useState(productsDB)
   const [search, setSearch] = useState('')
@@ -50,8 +47,8 @@ export default function Produtos() {
     }
   }
   return (
-    <div className="flex justify-center mb-36">
-      <div className="w-full flex flex-col gap-8  w-[30%] h-[90vh]">
+    <div className="flex justify-center my-36">
+      <div className="w-full flex flex-col gap-4  w-[30%] h-[90vh]">
         <div className="pesquisa">
           Filtre por nome
           <div className="w-full">
@@ -199,10 +196,11 @@ export default function Produtos() {
               className="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-3xl bg-gray-5 outline-0"
               type="number"
               value={price}
+              placeholder="Ex: 400"
               onChange={(e) => setPrice(e.target.value)}
             />
             <button
-              className="mt-2 ml-2 rounded bg-red-300"
+              className="rounded py-1 px-2 bg-indigo-200 mt-2"
               type="button"
               onClick={() => handleFilteringbyPrice(price)}
             >
