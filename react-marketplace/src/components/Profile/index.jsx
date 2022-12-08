@@ -1,15 +1,16 @@
 import Header from '../Header'
 import { useAuth } from '../../context/authContext'
+import placeholderimg from '../../assets/images/placeholderimg.jpg'
 
 export default function Profile() {
-  const { user, logout, loading } = useAuth()
+  const { user } = useAuth()
   return (
     <>
       <Header />
       <div className="flex items-center justify-center mt-12">
         <div className="MAIN w-4/5 border-2 bg-white p-8 shadow-lg ">
           <h1 className="font-semibold text-3xl w-full mb-6 text-indigo-900">
-            Perfil
+            Perfil {console.log(user)}
           </h1>
           <div className="2INPUTS+1IMG flex flex-col-reverse md:flex-row w-full justify-between mb-6">
             <div className="w-full">
@@ -38,7 +39,7 @@ export default function Profile() {
             <div className="w-[190px] bg-red">
               <span>Foto de perfil:</span>
               <img
-                src={user && user.photoURL}
+                src={user && user.photoURL ? user.photoURL : placeholderimg}
                 alt=""
                 className="border-2 w-full h-full"
               />

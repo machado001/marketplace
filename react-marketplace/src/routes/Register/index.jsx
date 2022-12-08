@@ -1,29 +1,32 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useAuth } from "../../context/authContext";
-import  { useNavigate }  from 'react-router-dom';
+import { useAuth } from '../../context/authContext'
+import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import GGH from '../../assets/GGH.svg'
 
 export function Register() {
-
+  const [userName, setUserName] = useState('')
   const [user, setUser] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   })
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const { signup } = useAuth()
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    await signup(user.email, user.password);
-    navigate("/"); 
+    e.preventDefault()
+    await signup(user.email, user.password).then(
+      (e) => (e.user.displayName = userName)
+    )
+    navigate('/')
   }
 
-  const handleChange = ({target: {name, value}}) => setUser({...user, [name]: value})
+  const handleChange = ({ target: { name, value } }) =>
+    setUser({ ...user, [name]: value })
   return (
     <div className="flex flex-col h-[100vh] items-center justify-center">
       <div className="shadow-lg bg-white md:w-2/4 w-5/6 p-8">
@@ -41,6 +44,7 @@ export function Register() {
               id="name"
               placeholder="Seu nome"
               className="outline-0 border-2 rounded px-3 py-2 w-full"
+              onChange={(e) => setUserName(e.target.value)}
             />
           </div>
           <div className="mb-3">

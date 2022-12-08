@@ -1,4 +1,4 @@
-import productsDB from '../../products'
+import { productsDb } from '../../products'
 import { useState } from 'react'
 import { useEffect } from 'react'
 
@@ -7,7 +7,7 @@ import ListedProducts from '../ListedProducts'
 export default function Produtos() {
   const [price, setPrice] = useState(0)
   const [category, setCategory] = useState('Nenhum')
-  const [products, setProducts] = useState(productsDB)
+  const [products, setProducts] = useState(productsDb)
   const [search, setSearch] = useState('')
 
   useEffect(() => {
@@ -19,9 +19,9 @@ export default function Produtos() {
 
   function handleFilteringbySearch() {
     if (search === '') {
-      setProducts(productsDB)
+      setProducts(productsDb)
     } else {
-      const newProducts = productsDB.filter((product) =>
+      const newProducts = productsDb.filter((product) =>
         product.productName.toUpperCase().includes(search.toUpperCase())
       )
       setProducts(newProducts)
@@ -31,16 +31,16 @@ export default function Produtos() {
     if (Number(filter) === 0) {
       return
     }
-    const ProductsFiltred = productsDB.filter(
+    const ProductsFiltred = productsDb.filter(
       (product) => Number(product.productPrice) <= Number(filter)
     )
     setProducts(ProductsFiltred)
   }
   function handleFilteringbyCategory() {
     if (category === 'Nenhum') {
-      setProducts(productsDB)
+      setProducts(productsDb)
     } else {
-      const ProductsFiltred = productsDB.filter(
+      const ProductsFiltred = productsDb.filter(
         (product) => product.productCategory === category
       )
       setProducts(ProductsFiltred)
