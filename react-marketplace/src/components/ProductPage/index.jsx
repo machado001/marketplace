@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom'
 import Header from '../Header'
 import Footer from '../Footer'
-import { productsDb } from '../../products'
-import { ArchiveBox, ShoppingCart } from 'phosphor-react'
+import productsDb from '../../products'
+import { ArchiveBox, ShoppingCart, Truck } from 'phosphor-react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 
@@ -42,18 +42,21 @@ export default function ProductPage() {
     }
   }
   return (
-    <>
+    <div className="relative">
       <Header />
-      <div className="flex mt-8 justify-center items-center">
-        <div className="product h-[130vh] gap-4 w-5/6 px-7 flex md:flex-row flex-col md:justify-between">
-          <div className="mt-8 mx-auto">
+      <div className="flex my-8 justify-center items-center">
+        <div className="product gap-8 w-5/6 px-7 flex md:flex-row flex-col md:justify-center">
+          <div className="mt-8 md:mt-0">
             <img src={product.productImage} alt="" />
           </div>
-          <div className="PRODUCT-INFOS flex flex-col order-1">
-            <span className="text-center md:text-start absolute top-[110px] md:static md:top-0 text-2xl md:text-3xl">
-              {product.productName}
-            </span>
-            <span className="text mb-4">{product.productDesc}</span>
+          <div className="PRODUCT-INFOS h-5/6 flex flex-col justify-between">
+            <div className="flex flex-col">
+              <span className="absolute top-[110px] md:static md:top-0 text-2xl md:text-3xl">
+                {product.productName}
+              </span>
+              <span className="text mb-4">{product.productDesc}</span>
+            </div>
+
             <span className="text text-green-800 text-3xl font-bold">
               R${product.productPrice}
             </span>
@@ -63,7 +66,6 @@ export default function ProductPage() {
                 <ArchiveBox />
                 {product.productStock}
               </div>
-
               <div className="flex mb-4 font-bold items-center justify">
                 <button
                   onClick={decrementProduct}
@@ -85,7 +87,13 @@ export default function ProductPage() {
                   +
                 </button>
               </div>
-              <hr />
+              <div>
+                <div className="flex gap-1 items-center">
+                  <Truck /> <span>Frete</span>
+                </div>
+                <div>CEP origem: {product.productAddress}</div>
+              </div>
+              <hr className="mb-16" />
               <div className="flex flex-col">
                 <span>Total: R${totalPrice}</span>
                 <button className="md:w-32 flex items-center justify-center md:justify-between gap-2 bg-indigo-400 py-2 px-4 mb-1 rounded font-semibold">
@@ -100,6 +108,6 @@ export default function ProductPage() {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   )
 }

@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import GGH from '../../assets/GGH.svg'
 
 export function Register() {
+  const [address, setAddress] = useState('')
   const [userName, setUserName] = useState('')
   const [user, setUser] = useState({
     email: '',
@@ -19,9 +20,13 @@ export function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await signup(user.email, user.password).then(
-      (e) => (e.user.displayName = userName)
-    )
+    await signup(user.email, user.password)
+    //   .then((e) => {
+    //   e.user.displayName = userName
+    //   e.user.address = address
+    //   console.log(user)
+    // })
+
     navigate('/')
   }
 
@@ -47,6 +52,7 @@ export function Register() {
               onChange={(e) => setUserName(e.target.value)}
             />
           </div>
+
           <div className="mb-3">
             <input
               type="text"

@@ -22,6 +22,7 @@ export default function Profile() {
                   value={
                     user && user.displayName ? user.displayName : user.email
                   }
+                  onClick={console.log(user)}
                   disabled
                 />
               </div>

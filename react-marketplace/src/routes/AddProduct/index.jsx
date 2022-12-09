@@ -21,6 +21,7 @@ export default function AddProduct() {
   const [productPrice, setProductPrice] = useState(0)
   const [productStock, setProductStock] = useState(0)
   const [productImage, setProductImage] = useState('')
+  const [address, setAddress] = useState()
 
   const { user } = useAuth()
 
@@ -32,7 +33,8 @@ export default function AddProduct() {
       !productName ||
       !productPrice ||
       !productStock ||
-      !productDesc
+      !productDesc ||
+      !address
     ) {
       toast.error('Alguns campos não foram preenchidos.')
       return
@@ -45,13 +47,24 @@ export default function AddProduct() {
       productStock: productStock,
       productImage: productImage,
       productOwner: user && user.email,
+      productLikes: 0,
+      productAddress: address,
     })
   }
 
   useEffect(() => {
     UploadImage()
   }, [image])
-
+  function handleCep(e) {
+    const cep = e.target.value.replace(/\D/g, '')
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+      .then((result) => result.json())
+      .then((data) => {
+        setAddress(`${data.cep}, ${data.localidade} - ${data.uf}`)
+        console.log('cep deu bom')
+      })
+      .catch(() => toast.error('Adicione um CEP válido.'))
+  }
   function UploadImage() {
     if (!image) return
 
@@ -141,6 +154,18 @@ export default function AddProduct() {
                 ))}
               </select>
             </div>
+          </div>
+          <div className="mb-3">
+            <label htmlFor="CEP">CEP origem do produto</label>
+            <input
+              type="text"
+              name="CEP"
+              id="CEP"
+              placeholder="CEP"
+              className="outline-0 border-2 p-1 w-full"
+              onBlur={(e) => handleCep(e)}
+              maxLength={9}
+            />
           </div>
           <div className="md:flex lg:justify-between">
             <div className="flex flex-col">

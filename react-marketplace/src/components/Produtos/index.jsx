@@ -1,13 +1,14 @@
-import { productsDb } from '../../products'
+import productsDb from '../../products'
 import { useState } from 'react'
 import { useEffect } from 'react'
 
 import ListedProducts from '../ListedProducts'
 
 export default function Produtos() {
+  const productsDB = productsDb()
   const [price, setPrice] = useState(0)
   const [category, setCategory] = useState('Nenhum')
-  const [products, setProducts] = useState(productsDb)
+  const [products, setProducts] = useState(productsDB)
   const [search, setSearch] = useState('')
 
   useEffect(() => {
@@ -19,9 +20,9 @@ export default function Produtos() {
 
   function handleFilteringbySearch() {
     if (search === '') {
-      setProducts(productsDb)
+      setProducts(productsDB)
     } else {
-      const newProducts = productsDb.filter((product) =>
+      const newProducts = productsDB.filter((product) =>
         product.productName.toUpperCase().includes(search.toUpperCase())
       )
       setProducts(newProducts)
@@ -31,16 +32,16 @@ export default function Produtos() {
     if (Number(filter) === 0) {
       return
     }
-    const ProductsFiltred = productsDb.filter(
+    const ProductsFiltred = productsDB.filter(
       (product) => Number(product.productPrice) <= Number(filter)
     )
     setProducts(ProductsFiltred)
   }
   function handleFilteringbyCategory() {
     if (category === 'Nenhum') {
-      setProducts(productsDb)
+      setProducts(productsDB)
     } else {
-      const ProductsFiltred = productsDb.filter(
+      const ProductsFiltred = productsDB.filter(
         (product) => product.productCategory === category
       )
       setProducts(ProductsFiltred)
@@ -48,6 +49,7 @@ export default function Produtos() {
   }
   return (
     <div className="flex justify-center my-36">
+      {console.log(productsDb())}
       <div className="w-full flex flex-col gap-4  w-[30%] h-[90vh]">
         <div className="pesquisa">
           Filtre por nome
