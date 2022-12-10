@@ -7,11 +7,11 @@ import { Link } from 'react-router-dom'
 
 const ListedProducts = ({ products }) => {
   return (
-    <div className="w-[60%] gap-4 justify-center flex flex-wrap">
+    <div className="md:w-[60%] gap-[3px] justify-center flex flex-wrap">
       {products.map((product) => (
         <div
           key={v4()}
-          className="item-div border min-w-[200px] h-[345px] m-1 rounded shadow-lg border-solid border-gray-300 bg-zinc-50"
+          className="item-div border h-[345px] rounded shadow-lg border-solid border-gray-300 bg-zinc-50"
         >
           <img
             src={product.productImage ? product.productImage : imgplaceholder}

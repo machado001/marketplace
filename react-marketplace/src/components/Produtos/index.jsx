@@ -48,9 +48,9 @@ export default function Produtos() {
     }
   }
   return (
-    <div className="flex justify-center my-36">
+    <div className="flex flex-col md:flex-row items-center justify-center my-36">
       {console.log(productsDb())}
-      <div className="w-full flex flex-col gap-4  w-[30%] h-[90vh]">
+      <div className="w-full flex flex-col gap-4 w-[90%] md:w-[30%] h-[90vh]">
         <div className="pesquisa">
           Filtre por nome
           <div className="w-full">

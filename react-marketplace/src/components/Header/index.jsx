@@ -8,7 +8,7 @@ import cart from '../../assets/cart.svg'
 export default function Header() {
   const [mobileMenu, setMobileMenu] = useState(false)
   const itemNavBarClassName =
-    'transition ease-in-out my-2 p-3 hover:bg-indigo-200 rounded-md cursor-pointer text-black text-sm'
+    'flex transition ease-in-out my-2 p-3 hover:bg-indigo-200 rounded-md cursor-pointer text-black text-sm'
 
   const { user, logout, loading } = useAuth()
   const navigate = useNavigate()
@@ -22,16 +22,7 @@ export default function Header() {
             alt="placeholder img"
             className="object-contain h-6 w-6"
           />
-          {/* <img
-            src={notification}
-            alt="placeholder img"
-            className="object-contain h-6 w-5"
-          />
-          <img
-            src={message}
-            alt="placeholder img"
-            className="object-contain h-6 w-6"
-          /> */}
+
           <div className="w-16 h-16 relative flex flex-col justify-center items-center p-2 group cursor-pointer">
             <img
               className="rounded-full h-9 shadow "
@@ -40,7 +31,6 @@ export default function Header() {
                   ? user.photoURL
                   : 'https://www.shareicon.net/data/256x256/2016/05/27/771338_man_512x512.png'
               }
-              alt=""
             />
 
             <div className="z-2 absolute shadow-lg w-[135px] top-16 h-0 truncate rounded-md group-hover:h-20 group-hover:flex hover:h-20 hover:flex bg-white border-2 px-2 py-1 transition-all flex-col">
@@ -122,15 +112,16 @@ export default function Header() {
                   : 'gap-3 md:flex justify-between md:items-center justify-center z-[1] md:z-auto md:static absolute w-full left-0 md:w-auto md:py-0 py-4  md:p-0 p-6 md:opacity-100 opacity-0 top-[-400px] transition-all ease-in-out duration-500 bg-white'
               }
             >
-              <li className={itemNavBarClassName}>
-                <Link to="/login">Categorias</Link>
-              </li>
-              <li className={itemNavBarClassName}>
-                <Link to="/produtos">Produtos recentes</Link>
-              </li>
-              <li className={itemNavBarClassName}>
-                <Link to="/add-product">Adicionar produtos</Link>
-              </li>
+              <Link className={itemNavBarClassName} to="/login">
+                Categorias
+              </Link>
+              <Link className={itemNavBarClassName} to="/produtos">
+                Produtos recentes
+              </Link>
+
+              <Link className={itemNavBarClassName} to="/add-product">
+                Adicionar produtos
+              </Link>
               {!user && (
                 <>
                   <li>
