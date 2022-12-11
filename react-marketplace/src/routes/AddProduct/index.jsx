@@ -81,46 +81,23 @@ export default function AddProduct() {
     <>
       <Header />
       <div className="flex flex-col items-center justify-center w-full mt-12 mb-24">
-        <form className="shadow-lg md:w-4/5 sm:w-5/6 lg:w-2/4 p-8 bg-white">
-          <h1 className="font-semibold text-3xl mb-6 text-indigo-900">
+        <form className="shadow-xl flex flex-col items-center p-12 shadow-indigo-200 rounded-3xl border border-indigo-200 md:w-4/5 sm:w-5/6 lg:w-2/4 p-8 bg-white">
+          <h1 className="text-3xl mb-6 text-center font-medium text-indigo-900">
             Adicionar Produto
           </h1>
-          <div className="md:flex gap-12 mb-4">
-            <div className="h-5/6">
-              <div className="flex flex-col mb-4">
-                <label htmlFor="productName">Título do produto</label>
-                <input
-                  className="outline-0 border-2 rounded px-3 py-2 w-full"
-                  type="text"
-                  id="productName"
-                  placeholder="Ex: Notebook Lenovo"
-                  onChange={(e) => setProductName(e.target.value)}
-                />
-              </div>
-              <div>
-                <label htmlFor="productDesc">Descrição</label>
-                <textarea
-                  className="outline-0 border-2 rounded px-3 py-2 w-full resize-none"
-                  id="productDesc"
-                  cols="30"
-                  rows="5"
-                  placeholder="Ex: Notebook usado durante 6 meses, bem reservado..."
-                  onChange={(e) => setProductDesc(e.target.value)}
-                ></textarea>
-              </div>
-            </div>
+          <div className="md:flex gap-4 mb-4">
             <div>
-              <span>Foto do produto</span>
               <div className="flex flex-col items-center">
+                <span className="w-full font-medium">Foto do produto</span>
                 <img
-                  className="h-44 w-44 p-4 shadow mt-4 mb-1"
+                  className="h-56 md:w-64 w-full rounded-2xl bg-gray-200"
                   id="imgOutput"
                   src={preview}
                 />
-                <div className="flex items-center">
+                <div className="flex relative items-center">
                   <label
                     htmlFor="upload"
-                    className="px-2 py-1 border bg-gradient-to-b from-indigo-500 to-indigo-400 rounded mb-3 cursor-pointer shadow"
+                    className="px-2 py-1 absolute right-[-45px] top-[-45px] border bg-indigo-500 rounded mb-3 cursor-pointer shadow"
                   >
                     <p className="text-indigo-50">Escolher</p>
                     <input
@@ -138,55 +115,100 @@ export default function AddProduct() {
                 </div>
               </div>
             </div>
+            <div className="">
+              <div className="flex flex-col mb-4">
+                <label htmlFor="productName">
+                  <p className="font-medium">Título do produto</p>
+                </label>
+                <input
+                  className="outline-0 bg-gray-200 rounded-lg border-2 rounded px-3 py-2"
+                  type="text"
+                  id="productName"
+                  placeholder="Ex: Notebook Lenovo"
+                  onChange={(e) => setProductName(e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="productDesc">
+                  <p className="font-medium">Descrição</p>
+                </label>
+                <textarea
+                  className="outline-0 border-2 rounded-lg bg-gray-200 px-3 py-2 w-full resize-none"
+                  id="productDesc"
+                  cols="30"
+                  rows="5"
+                  placeholder="Ex: Notebook usado durante 6 meses, bem reservado..."
+                  onChange={(e) => setProductDesc(e.target.value)}
+                ></textarea>
+              </div>
+            </div>
           </div>
           <hr />
-          <div className="mb-4 mt-2">
-            <div className="flex flex-col">
-              <label htmlFor="tags">Categoria do produto</label>
-              <select
-                className="border-2 p-1 outline-none md:w-2/4"
-                onChange={(e) => setProductCategory(e.target.value)}
-              >
-                {categorias.map((categoria) => (
-                  <option key={v4()} value={categoria}>
-                    {categoria}
+          <div className="mb-4 mt-2 flex flex-col md:flex-row gap-4 md:w-auto w-full">
+            <div className="PREÇO E ESTOQUE flex gap-4 md:w-[256px] flex-col">
+              <div className="flex flex-col">
+                <label htmlFor="preco">
+                  <p className="font-medium">Preço</p>
+                </label>
+                <input
+                  type="number"
+                  placeholder="R$"
+                  className="outline-none w-44 rounded-lg bg-gray-200 border-2 p-1"
+                  onChange={(e) => setProductPrice(e.target.value)}
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label htmlFor="estoque">
+                  <p className="font-medium">Estoque</p>
+                </label>
+                <input
+                  type="number"
+                  placeholder="Ex: 243"
+                  className="outline-none w-44 rounded-lg bg-gray-200 border-2 p-1"
+                  onChange={(e) => setProductStock(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className=" flex flex-col md:w-[311px] gap-4">
+              <div className="flex flex-col">
+                <label htmlFor="tags">
+                  <p className="font-medium">Categoria do produto</p>
+                </label>
+                <select
+                  className="border-2 p-1 h-[36px] rounded-lg bg-gray-200 outline-none"
+                  onChange={(e) => setProductCategory(e.target.value)}
+                >
+                  <option value="Automóveis">Automóveis</option>
+                  <option value="Eletrodomésticos">Eletrodomésticos</option>
+                  <option value="Computadores">Computadores</option>
+                  <option value="Celulares">Celulares</option>
+                  <option value="Cama / Mesa / Banho">
+                    Cama / Mesa / Banho
                   </option>
-                ))}
-              </select>
+                  CEP origem do produto
+                  <option value="Móveis">Móveis</option>
+                  <option value="Outros">Outros</option>
+                </select>
+              </div>
+              <div className="flex flex-col">
+                <label htmlFor="CEP">
+                  <p className="font-medium">CEP origem do produto</p>
+                </label>
+                <input
+                  type="text"
+                  name="CEP"
+                  id="CEP"
+                  placeholder="CEP"
+                  className="outline-0 rounded-lg bg-gray-200 border-2 p-1"
+                  onBlur={(e) => handleCep(e)}
+                  maxLength={9}
+                />
+                <span>{address}</span>
+              </div>
             </div>
           </div>
-          <div className="mb-3">
-            <label htmlFor="CEP">CEP origem do produto</label>
-            <input
-              type="text"
-              name="CEP"
-              id="CEP"
-              placeholder="CEP"
-              className="outline-0 border-2 p-1 w-full"
-              onBlur={(e) => handleCep(e)}
-              maxLength={9}
-            />
-          </div>
-          <div className="md:flex lg:justify-between">
-            <div className="flex flex-col">
-              <label htmlFor="preco">Preço</label>
-              <input
-                type="number"
-                placeholder="R$"
-                className="outline-none border-2 p-1"
-                onChange={(e) => setProductPrice(e.target.value)}
-              />
-            </div>
-            <div className="flex flex-col">
-              <label htmlFor="estoque">Estoque</label>
-              <input
-                type="number"
-                placeholder="Ex: 243"
-                className="outline-none border-2 p-1"
-                onChange={(e) => setProductStock(e.target.value)}
-              />
-            </div>
-          </div>
+
           <button
             className="px-4 py-2 border bg-gradient-to-b from-indigo-500 to-indigo-400 rounded mb-3 mt-3 shadow"
             type="button"

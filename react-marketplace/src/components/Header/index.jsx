@@ -112,9 +112,7 @@ export default function Header() {
                   : 'gap-3 md:flex justify-between md:items-center justify-center z-[1] md:z-auto md:static absolute w-full left-0 md:w-auto md:py-0 py-4  md:p-0 p-6 md:opacity-100 opacity-0 top-[-400px] transition-all ease-in-out duration-500 bg-white'
               }
             >
-              <Link className={itemNavBarClassName} to="/login">
-                Categorias
-              </Link>
+              <p className={itemNavBarClassName}>Categorias</p>
               <Link className={itemNavBarClassName} to="/produtos">
                 Produtos recentes
               </Link>

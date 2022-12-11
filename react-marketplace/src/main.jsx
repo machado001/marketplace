@@ -13,7 +13,7 @@ import './index.css'
 import Root from './routes/root'
 import Produtos from './components/Produtos'
 import Profile from './components/Profile'
-import ProductPage from './components/ProductPage'
+import ProductPage from './routes/ProductPage'
 
 const router = createBrowserRouter([
   {

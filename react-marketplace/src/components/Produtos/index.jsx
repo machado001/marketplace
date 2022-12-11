@@ -30,12 +30,13 @@ export default function Produtos() {
   }
   function handleFilteringbyPrice(filter) {
     if (Number(filter) === 0) {
-      return
+      setProducts(productsDB)
+    } else {
+      const ProductsFiltred = productsDB.filter(
+        (product) => Number(product.productPrice) <= Number(filter)
+      )
+      setProducts(ProductsFiltred)
     }
-    const ProductsFiltred = productsDB.filter(
-      (product) => Number(product.productPrice) <= Number(filter)
-    )
-    setProducts(ProductsFiltred)
   }
   function handleFilteringbyCategory() {
     if (category === 'Nenhum') {

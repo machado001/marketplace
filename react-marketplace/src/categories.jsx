@@ -4,7 +4,7 @@ const categorias = [
   'Automóveis',
   'Computadores',
   'Celulares',
-  'Cama / mesa  banho',
+  'Cama / Mesa / Banho',
   'Móveis',
   'Outros',
 ].sort()
