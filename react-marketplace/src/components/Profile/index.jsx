@@ -1,8 +1,15 @@
 import Header from '../Header'
 import { useAuth } from '../../context/authContext'
+import placeholderimg from '../../assets/images/placeholderimg.jpg'
+import { Link } from 'react-router-dom'
+import productsDb from '../../products'
 
 export default function Profile() {
-  const { user, logout, loading } = useAuth()
+  const { user } = useAuth()
+  const products = productsDb()
+  const newProducts = products.filter(
+    (product) => product.productOwner === user.email
+  )
   return (
     <>
       <Header />
@@ -21,6 +28,7 @@ export default function Profile() {
                   value={
                     user && user.displayName ? user.displayName : user.email
                   }
+                  onClick={console.log(user)}
                   disabled
                 />
               </div>
@@ -38,14 +46,57 @@ export default function Profile() {
             <div className="w-[190px] bg-red">
               <span>Foto de perfil:</span>
               <img
-                src={user && user.photoURL}
+                src={user && user.photoURL ? user.photoURL : placeholderimg}
                 alt=""
                 className="border-2 w-full h-full"
               />
             </div>
           </div>
           <span>Seus produtos:</span>
-          <div className="w-full border-2 h-12"></div>
+          <div className="w-full border-2">
+            <div className="gap-[3px] justify-evenly flex flex-wrap">
+              {newProducts.map((product) => (
+                <div className="item-div w-[200px] border h-[345px] rounded shadow-lg border-solid border-gray-300 bg-zinc-50">
+                  <img
+                    src={
+                      product.productImage
+                        ? product.productImage
+                        : imgplaceholder
+                    }
+                    drag="x"
+                    alt="Highlight-Items"
+                    className="rounded max-w-[170px] h-[170px] pointer-events-none mx-auto shadow-sm my-3 "
+                  />
+                  <ul className="space-y-4 mx-5">
+                    <li className="h-8 w-36 truncate">
+                      <span
+                        title={product.productName}
+                        className=" rounded cursor-default w-full"
+                      >
+                        {product.productName}
+                      </span>
+                    </li>
+                    <li>
+                      <div className="flex items-center justify-between">
+                        <span className="text-lime-700 font-bold rounded cursor-default">
+                          R${product.productPrice}
+                        </span>
+                        <div className="flex items-center gap-1">
+                          <span>{product.productLikes}</span>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <Link
+                        className="rounded bg-indigo-200 p-2 font-medium flex items-center justify-between w-28"
+                        to={`/product/${product.id}`}
+                      ></Link>
+                    </li>
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </>

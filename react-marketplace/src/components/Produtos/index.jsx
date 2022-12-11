@@ -1,14 +1,12 @@
-import productsMock from '../../productsMock'
-import productsDB from '../../products'
-import categories from '../../categories'
-import imgplaceholder from '../../assets/images/placeholderimg.jpg'
-import { v4 } from 'uuid'
-import { CaretRight } from 'phosphor-react'
+import productsDb from '../../products'
 import { useState } from 'react'
 import { useEffect } from 'react'
 
+import ListedProducts from '../ListedProducts'
+
 export default function Produtos() {
-  const [price, setPrice] = useState(10)
+  const productsDB = productsDb()
+  const [price, setPrice] = useState(0)
   const [category, setCategory] = useState('Nenhum')
   const [products, setProducts] = useState(productsDB)
   const [search, setSearch] = useState('')
@@ -16,23 +14,32 @@ export default function Produtos() {
   useEffect(() => {
     handleFilteringbyCategory()
   }, [category])
+  useEffect(() => {
+    handleFilteringbySearch()
+  }, [search])
 
   function handleFilteringbySearch() {
-    const newProducts = productsDB.filter((product) =>
-      product.productName.toUpperCase().includes(search.toUpperCase())
-    )
-    setProducts(newProducts)
-    console.log(search)
+    if (search === '') {
+      setProducts(productsDB)
+    } else {
+      const newProducts = productsDB.filter((product) =>
+        product.productName.toUpperCase().includes(search.toUpperCase())
+      )
+      setProducts(newProducts)
+    }
   }
   function handleFilteringbyPrice(filter) {
-    const ProductsFiltred = productsDB.filter(
-      (product) => Number(product.productPrice) <= Number(filter)
-    )
-    setProducts(ProductsFiltred)
+    if (Number(filter) === 0) {
+      setProducts(productsDB)
+    } else {
+      const ProductsFiltred = productsDB.filter(
+        (product) => Number(product.productPrice) <= Number(filter)
+      )
+      setProducts(ProductsFiltred)
+    }
   }
   function handleFilteringbyCategory() {
     if (category === 'Nenhum') {
-      console.log('tome')
       setProducts(productsDB)
     } else {
       const ProductsFiltred = productsDB.filter(
@@ -40,13 +47,11 @@ export default function Produtos() {
       )
       setProducts(ProductsFiltred)
     }
-
-    console.log(productsMock)
   }
   return (
-    <div className="flex justify-center mb-24">
-      {console.log(productsDB)}
-      <div className="w-full flex flex-col gap-8  w-[30%] h-[90vh]">
+    <div className="flex flex-col md:flex-row items-center justify-center my-36">
+      {console.log(productsDb())}
+      <div className="w-full flex flex-col gap-4 w-[90%] md:w-[30%] h-[90vh]">
         <div className="pesquisa">
           Filtre por nome
           <div className="w-full">
@@ -61,32 +66,10 @@ export default function Produtos() {
               <input
                 type="search"
                 id="default-search"
-                className="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-3xl bg-gray-5 outline-0"
+                className="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-3xl bg-gray-5 outline-0"
                 placeholder="Ex: Geladeira"
                 onChange={(e) => setSearch(e.target.value)}
-                required
               />
-              <button
-                type="button"
-                className="text-white absolute right-2.5 transition bottom-2.5 bg-indigo-600 hover:bg-indigo-800 font-medium rounded-lg text-sm px-3 py-2"
-                onClick={handleFilteringbySearch}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="w-5 h-5 text-indigo-100"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  ></path>
-                </svg>
-              </button>
             </div>
           </div>
         </div>
@@ -104,7 +87,96 @@ export default function Produtos() {
               />
               <label htmlFor="Nenhum">Nenhum</label>
             </div>
-            {categories.map((category) => (
+
+            <div className="flex gap-2">
+              <input
+                type="radio"
+                id="Automóveis"
+                value="Automóveis"
+                name="categorySelected"
+                onChange={(e) => setCategory(e.target.value)}
+              />
+              <label htmlFor="Automóveis">Automóveis</label>
+            </div>
+
+            <div className="flex gap-2">
+              <input
+                type="radio"
+                id="Cama / mesa / banho"
+                value="Cama / mesa / banho"
+                name="categorySelected"
+                onChange={(e) => setCategory(e.target.value)}
+              />
+              <label htmlFor="Cama / mesa / banho">Cama / mesa / banho</label>
+            </div>
+
+            <div className="flex gap-2">
+              <input
+                type="radio"
+                id="Celulares"
+                value="Celulares"
+                name="categorySelected"
+                onChange={(e) => setCategory(e.target.value)}
+              />
+              <label htmlFor="Celulares">Celulares</label>
+            </div>
+
+            <div className="flex gap-2">
+              <input
+                type="radio"
+                id="Computadores"
+                value="Computadores"
+                name="categorySelected"
+                onChange={(e) => setCategory(e.target.value)}
+              />
+              <label htmlFor="Computadores">Computadores</label>
+            </div>
+
+            <div className="flex gap-2">
+              <input
+                type="radio"
+                id="Eletrodomésticos"
+                value="Eletrodomésticos"
+                name="categorySelected"
+                onChange={(e) => setCategory(e.target.value)}
+              />
+              <label htmlFor="Eletrodomésticos">Eletrodomésticos</label>
+            </div>
+
+            <div className="flex gap-2">
+              <input
+                type="radio"
+                id="Ferramentas"
+                value="Ferramentas"
+                name="categorySelected"
+                onChange={(e) => setCategory(e.target.value)}
+              />
+              <label htmlFor="Ferramentas">Ferramentas</label>
+            </div>
+
+            <div className="flex gap-2">
+              <input
+                type="radio"
+                id="Móveis"
+                value="Móveis"
+                name="categorySelected"
+                onChange={(e) => setCategory(e.target.value)}
+              />
+              <label htmlFor="Móveis">Móveis</label>
+            </div>
+
+            <div className="flex gap-2">
+              <input
+                type="radio"
+                id="Outros"
+                value="Outros"
+                name="categorySelected"
+                onChange={(e) => setCategory(e.target.value)}
+              />
+              <label htmlFor="Outros">Outros</label>
+            </div>
+
+            {/* {categories.map((category) => (
               <div className="flex gap-2" key={v4()}>
                 <input
                   type="radio"
@@ -115,64 +187,32 @@ export default function Produtos() {
                 />
                 <label htmlFor={category}>{category}</label>
               </div>
-            ))}
+            ))} */}
           </div>
         </div>
         <hr />
         <div className="preços">
-          Filtre por preço (valor máximo)
+          Filtre por preço <br />
+          (valor máximo)
           <div className="w-full">
             <input
+              className="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-3xl bg-gray-5 outline-0"
               type="number"
               value={price}
+              placeholder="Ex: 400"
               onChange={(e) => setPrice(e.target.value)}
             />
-            <button className='mt-2 ml-2 rounded bg-red-300' type="button" onClick={() => handleFilteringbyPrice(price)}>
+            <button
+              className="rounded py-1 px-2 bg-indigo-200 mt-2"
+              type="button"
+              onClick={() => handleFilteringbyPrice(price)}
+            >
               Filtrar
             </button>
           </div>
         </div>
       </div>
-      <div className="w-[60%] gap-4 justify-center flex flex-wrap">
-        {products.map((product) => (
-          <div
-            key={v4()}
-            className="item-div border min-w-[200px] h-[345px] m-1 rounded shadow-lg border-solid border-gray-300 bg-zinc-50"
-          >
-            <img
-              src={product.productImage ? product.productImage : imgplaceholder}
-              drag="x"
-              alt="Highlight-Items"
-              className="rounded max-w-[170px] h-[170px] pointer-events-none mx-auto shadow-sm my-3 "
-            />
-            <ul className="space-y-4 ml-5">
-              <li className="h-8 w-36 truncate">
-                <span
-                  title={product.productName}
-                  className=" rounded cursor-default w-full"
-                >
-                  {product.productName}
-                </span>
-              </li>
-              <li>
-                <span className="text-lime-700 font-bold rounded cursor-default">
-                  R${product.productPrice}
-                </span>
-              </li>
-              <li>
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://www.youtube.com/watch?v=dKD4o-jrvTE"
-                  className="rounded bg-indigo-200 p-2 font-medium flex items-center justify-between w-28"
-                >
-                  Detalhes <CaretRight />
-                </a>
-              </li>
-            </ul>
-          </div>
-        ))}
-      </div>
+      <ListedProducts products={products} />
     </div>
   )
 }
