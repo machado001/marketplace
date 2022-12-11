@@ -38,7 +38,8 @@ export function Register() {
       navigate('/')
     } catch (error) {
       if (error.code==="auth/invalid-email") {
-        toast.error("Por favor, digite um email válido")
+        toast.error("Por favor, digite um email válido", {position: toast.POSITION.TOP_CENTER})
+        position: toast.POSITION.BOTTOM_LEFT
       }
       
     }
@@ -106,7 +107,7 @@ export function Register() {
           </div>
         </form>
       </div>
-      <ToastContainer position: '' />
+      <ToastContainer />
     </div>
   )
 }
