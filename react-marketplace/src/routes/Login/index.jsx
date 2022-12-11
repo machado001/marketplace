@@ -43,7 +43,6 @@ export function Login() {
         toast.error('Algo deu errado 😔')
       })
 
-    navigate('/')
   }
 
   const handleChange = ({ target: { name, value } }) =>
@@ -123,3 +122,4 @@ export function Login() {
     </div>
   )
 }
+

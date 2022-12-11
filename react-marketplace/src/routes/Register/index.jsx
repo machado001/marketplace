@@ -6,6 +6,8 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import GGH from '../../assets/GGH.svg'
 
+
+
 export function Register() {
   const [address, setAddress] = useState('')
   const [userName, setUserName] = useState('')
@@ -14,20 +16,32 @@ export function Register() {
     password: '',
   })
 
+
+
   const navigate = useNavigate()
 
   const { signup } = useAuth()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await signup(user.email, user.password)
-    //   .then((e) => {
-    //   e.user.displayName = userName
-    //   e.user.address = address
-    //   console.log(user)
-    // })
 
-    navigate('/')
+    if (!user.email) {
+      return alert('Por favor, digite um email.')
+    }
+
+    if (!user.password) {
+      return alert('Por favor, digite uma senha.')
+    }
+
+    try {
+      await signup(user.email, user.password)
+      navigate('/')
+    } catch (error) {
+      if (error.code==="auth/invalid-email") {
+        toast.error("Por favor, digite um email válido")
+      }
+      
+    }
   }
 
   const handleChange = ({ target: { name, value } }) =>
@@ -42,6 +56,7 @@ export function Register() {
           </h1>
         </header>
         <form>
+          
           <div className="mb-3">
             <input
               type="text"
@@ -91,7 +106,7 @@ export function Register() {
           </div>
         </form>
       </div>
-      <ToastContainer />
+      <ToastContainer position: '' />
     </div>
   )
 }

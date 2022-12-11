@@ -1,5 +1,6 @@
 import { CaretRight, Heart } from 'phosphor-react'
 import { v4 } from 'uuid'
+import LikeChecker from '../LikeChecker'
 
 import imgplaceholder from '../../assets/images/placeholderimg.jpg'
 
@@ -34,8 +35,7 @@ const ListedProducts = ({ products }) => {
                   R${product.productPrice}
                 </span>
                 <div className="flex items-center gap-1">
-                  <span>{product.productLikes}</span>
-                  <Heart size={20} />
+                  {<LikeChecker id={product.id} />}
                 </div>
               </div>
             </li>
