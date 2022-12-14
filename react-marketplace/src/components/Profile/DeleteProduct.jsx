@@ -8,8 +8,11 @@ export default function DeleteProduct({ id }) {
     await deleteDoc(productToDelete).then(console.log('boa'))
   }
   return (
-    <button className="flex items-center bg-red-300" onClick={HandleErase}>
-      Deletar <TrashSimple />
+    <button
+      className="flex p-1 rounded-md items-center bg-red-300"
+      onClick={HandleErase}
+    >
+      Deletar <TrashSimple weight="bold" />
     </button>
   )
 }

@@ -3,9 +3,10 @@ import { useAuth } from '../../context/authContext'
 import placeholderimg from '../../assets/images/placeholderimg.jpg'
 import { Link } from 'react-router-dom'
 import productsDb from '../../products'
-import { CaretRight, TrashSimple, Pencil } from 'phosphor-react'
+import { ArchiveBox } from 'phosphor-react'
 import DeleteProduct from './DeleteProduct'
 import EditProduct from './EditProduct'
+import imgplaceholder from '../../assets/images/placeholderimg.jpg'
 
 export default function Profile() {
   const { user } = useAuth()
@@ -85,12 +86,14 @@ export default function Profile() {
                           R${product.productPrice}
                         </span>
                         <div className="flex items-center gap-1">
-                          <span>{product.productLikes}</span>
+                          <span className="flex items-center">
+                            {product.productStock} <ArchiveBox />
+                          </span>
                         </div>
                       </div>
                     </li>
                     <li className="flex items-center gap-1">
-                      <EditProduct />
+                      <EditProduct product={product} id={product.id} />
                       <DeleteProduct id={product.id} />
                     </li>
                   </ul>
