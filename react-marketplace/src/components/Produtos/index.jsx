@@ -6,6 +6,7 @@ import ListedProducts from '../ListedProducts'
 
 export default function Produtos() {
   const productsDB = productsDb()
+
   const [price, setPrice] = useState(0)
   const [category, setCategory] = useState('Nenhum')
   const [products, setProducts] = useState(productsDB)
@@ -14,43 +15,37 @@ export default function Produtos() {
   useEffect(() => {
     handleFilteringbyCategory()
   }, [category])
-  useEffect(() => {
-    handleFilteringbySearch()
-  }, [search])
 
-  function handleFilteringbySearch() {
-    if (search === '') {
-      setProducts(productsDB)
-    } else {
-      const newProducts = productsDB.filter((product) =>
-        product.productName.toUpperCase().includes(search.toUpperCase())
-      )
-      setProducts(newProducts)
-    }
-  }
+  console.log('renderizou')
+  const filteredBySearch =
+    search.length > 0
+      ? productsDB.filter((product) =>
+          product.productName.toUpperCase().includes(search.toUpperCase())
+        )
+      : []
+
   function handleFilteringbyPrice(filter) {
     if (Number(filter) === 0) {
       setProducts(productsDB)
     } else {
-      const ProductsFiltred = productsDB.filter(
+      const filteredProducts = productsDB.filter(
         (product) => Number(product.productPrice) <= Number(filter)
       )
-      setProducts(ProductsFiltred)
+      setProducts(filteredProducts)
     }
   }
   function handleFilteringbyCategory() {
     if (category === 'Nenhum') {
       setProducts(productsDB)
     } else {
-      const ProductsFiltred = productsDB.filter(
+      const filteredProducts = productsDB.filter(
         (product) => product.productCategory === category
       )
-      setProducts(ProductsFiltred)
+      setProducts(filteredProducts)
     }
   }
   return (
     <div className="flex flex-col md:flex-row items-center justify-center my-36">
-      {console.log(productsDb())}
       <div className="w-full flex flex-col gap-4 w-[90%] md:w-[30%] h-[90vh]">
         <div className="pesquisa">
           Filtre por nome
@@ -175,19 +170,6 @@ export default function Produtos() {
               />
               <label htmlFor="Outros">Outros</label>
             </div>
-
-            {/* {categories.map((category) => (
-              <div className="flex gap-2" key={v4()}>
-                <input
-                  type="radio"
-                  id={category}
-                  value={category}
-                  name="categorySelected"
-                  onChange={(e) => setCategory(e.target.value)}
-                />
-                <label htmlFor={category}>{category}</label>
-              </div>
-            ))} */}
           </div>
         </div>
         <hr />
@@ -212,7 +194,11 @@ export default function Produtos() {
           </div>
         </div>
       </div>
-      <ListedProducts products={products} />
+      {search.length > 0 ? (
+        <ListedProducts products={filteredBySearch} />
+      ) : (
+        <ListedProducts products={products} />
+      )}
     </div>
   )
 }

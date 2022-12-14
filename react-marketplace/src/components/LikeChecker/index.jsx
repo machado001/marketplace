@@ -7,23 +7,13 @@ import {
   deleteDoc,
 } from 'firebase/firestore'
 import { Heart } from 'phosphor-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { db } from '../../services/fireBaseConfig'
 import { useAuth } from '../../context/authContext'
 export default function LikeChecker({ id }) {
   const { user } = useAuth()
-  const [docs, setDocs] = useState({})
   const [isLiked, setIsLiked] = useState()
   const [totalLikes, setTotalLikes] = useState()
-
-  async function GetLikes() {
-    try {
-      await getDoc(doc(db, 'products', id)).then((result) => {
-        setDocs(result.data())
-      })
-    } catch (err) {}
-  }
-  GetLikes(id)
 
   async function HandleLiking() {
     TotalProductLikes()
@@ -42,13 +32,15 @@ export default function LikeChecker({ id }) {
     IsProductLiked()
   }
   async function IsProductLiked() {
-    const userToVerify = (
-      await getDoc(doc(db, 'products', id, 'whoLiked', user.email))
-    ).exists()
-    if (userToVerify) {
-      setIsLiked('fill')
-    } else {
-      setIsLiked('regular')
+    if (user) {
+      const userToVerify = (
+        await getDoc(doc(db, 'products', id, 'whoLiked', user.email))
+      ).exists()
+      if (userToVerify) {
+        setIsLiked('fill')
+      } else {
+        setIsLiked('regular')
+      }
     }
   }
   IsProductLiked()

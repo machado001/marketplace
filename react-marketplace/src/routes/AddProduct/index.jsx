@@ -188,6 +188,11 @@ export default function AddProduct() {
                   </option>
                   CEP origem do produto
                   <option value="Móveis">Móveis</option>
+                  <option value="Livros">Livros</option>
+                  <option value="Roupas">Roupas</option>
+                  <option value="Acessorios">Acessorios</option>
+                  <option value="Brinquedos">Brinquedos</option>
+                  <option value="Sustentaveis">Sustentaveis</option>
                   <option value="Outros">Outros</option>
                 </select>
               </div>

@@ -3,6 +3,9 @@ import { useAuth } from '../../context/authContext'
 import placeholderimg from '../../assets/images/placeholderimg.jpg'
 import { Link } from 'react-router-dom'
 import productsDb from '../../products'
+import { CaretRight, TrashSimple, Pencil } from 'phosphor-react'
+import DeleteProduct from './DeleteProduct'
+import EditProduct from './EditProduct'
 
 export default function Profile() {
   const { user } = useAuth()
@@ -86,11 +89,9 @@ export default function Profile() {
                         </div>
                       </div>
                     </li>
-                    <li>
-                      <Link
-                        className="rounded bg-indigo-200 p-2 font-medium flex items-center justify-between w-28"
-                        to={`/product/${product.id}`}
-                      ></Link>
+                    <li className="flex items-center gap-1">
+                      <EditProduct />
+                      <DeleteProduct id={product.id} />
                     </li>
                   </ul>
                 </div>

@@ -1,4 +1,4 @@
-import { CaretRight, Heart } from 'phosphor-react'
+import { CaretRight } from 'phosphor-react'
 import { v4 } from 'uuid'
 import LikeChecker from '../LikeChecker'
 
