@@ -7,13 +7,18 @@ import { ArchiveBox } from 'phosphor-react'
 import DeleteProduct from './DeleteProduct'
 import EditProduct from './EditProduct'
 import imgplaceholder from '../../assets/images/placeholderimg.jpg'
+import { useState } from 'react'
+import { ToastContainer } from 'react-toastify'
 
 export default function Profile() {
   const { user } = useAuth()
   const products = productsDb()
+
   const newProducts = products.filter(
     (product) => product.productOwner === user.email
   )
+
+  const [productsState, setProductsState] = useState(newProducts)
   return (
     <>
       <Header />
@@ -32,7 +37,6 @@ export default function Profile() {
                   value={
                     user && user.displayName ? user.displayName : user.email
                   }
-                  onClick={console.log(user)}
                   disabled
                 />
               </div>
@@ -59,7 +63,7 @@ export default function Profile() {
           <span>Seus produtos:</span>
           <div className="w-full border-2">
             <div className="gap-[3px] justify-evenly flex flex-wrap">
-              {newProducts.map((product) => (
+              {productsState.map((product) => (
                 <div className="item-div w-[200px] border h-[345px] rounded shadow-lg border-solid border-gray-300 bg-zinc-50">
                   <img
                     src={
@@ -103,6 +107,7 @@ export default function Profile() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   )
 }

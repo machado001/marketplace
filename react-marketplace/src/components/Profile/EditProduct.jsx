@@ -4,18 +4,17 @@ import { useState, useEffect } from 'react'
 import { CaretRight } from 'phosphor-react'
 import { storage, db } from '../../services/fireBaseConfig'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
-import { collection, doc, updateDoc } from 'firebase/firestore'
+import { doc, updateDoc } from 'firebase/firestore'
 import { v4 } from 'uuid'
 import { useAuth } from '../../context/authContext'
-import categorias from '../../categories'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import classNames from 'classnames'
 
 export default function EditProduct({ product }) {
   const [show, setShow] = useState(false)
 
-  const [image, setImage] = useState()
+  const [image, setImage] = useState(product.productImage)
   const [preview, setPreview] = useState(product.productImage)
 
   const [productName, setProductName] = useState(product.productName)
@@ -29,8 +28,6 @@ export default function EditProduct({ product }) {
   const [address, setAddress] = useState(product.productAddress.slice(0, 9))
 
   const { user } = useAuth()
-
-  const productsRef = collection(db, 'products')
 
   async function HandleAddProduct() {
     if (
@@ -55,9 +52,10 @@ export default function EditProduct({ product }) {
       productOwner: user && user.email,
       productLikes: 0,
       productAddress: address,
+    }).then(() => {
+      toast.success('Produto editado com sucesso!')
+      setShow((current) => !current)
     })
-      .then('produto atualizado com susexo')
-      .catch((err) => console.log(err))
   }
 
   useEffect(() => {
@@ -69,7 +67,6 @@ export default function EditProduct({ product }) {
       .then((result) => result.json())
       .then((data) => {
         setAddress(`${data.cep}, ${data.localidade} - ${data.uf}`)
-        console.log('cep deu bom')
       })
       .catch(() => toast.error('Adicione um CEP válido.'))
   }
@@ -83,7 +80,6 @@ export default function EditProduct({ product }) {
         setProductImage(url)
       })
     })
-    console.log('nice')
   }
   return (
     <>
@@ -102,7 +98,7 @@ export default function EditProduct({ product }) {
         <div className="flex flex-col items-center justify-center w-full ">
           <form className="shadow-xl relative flex flex-col items-center p-8 max-h-[95vh] overflow-y-scroll shadow-indigo-200 rounded-3xl border border-indigo-200 p-8 bg-white">
             <h1 className="text-3xl mb-6 text-center font-medium text-indigo-900">
-              Adicionar Produto
+              Editar Produto
             </h1>
             <button
               type="button"
@@ -252,12 +248,11 @@ export default function EditProduct({ product }) {
               onClick={HandleAddProduct}
             >
               <div className="flex items-center">
-                <p className="pr-2 text-indigo-50 font-bold">Adicionar</p>
+                <p className="pr-2 text-indigo-50 font-bold">Concluir</p>
                 <CaretRight className="text-white" />
               </div>
             </button>
           </form>
-          <ToastContainer />
         </div>
       </div>
     </>
